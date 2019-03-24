@@ -130,6 +130,7 @@ public class TimesheetPage extends PageObject {
         jsTaskNameInput.waitUntilNotVisible();
         addTaskLink.waitUntilVisible().click();
         recentlyUsedTask.click();
+        recentlyUsedTask.waitUntilNotVisible();
         durationEntryInput.typeAndEnter(durationTime);
     }
     public void clickTimerStopButton(){
@@ -141,6 +142,7 @@ public class TimesheetPage extends PageObject {
         inputWhatDidYouWorkOn.click();
         jsAddTaskWidget.waitUntilVisible().click();
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
+        jsTaskNameInput.waitUntilNotVisible();
         durationWidgetInput.typeAndEnter(durationTime);
         mainWidgetAddManually.click();
     }
@@ -153,7 +155,5 @@ public class TimesheetPage extends PageObject {
         log.info("Names of time entries " + getNamesOfEntries.getText());
         log.info("Durations of three entries is " + summaryEntryDuration.getText());
         Assert.assertEquals(totalEntryDuration, summaryEntryDuration.getText());
-
-
     }
 }

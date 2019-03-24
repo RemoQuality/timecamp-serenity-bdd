@@ -6,10 +6,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 
 
-@DefaultUrl("https://timecamp.com/")
+@DefaultUrl("http://localhost:8080/")
 public class HomePage extends PageObject {
 
-    @FindBy(xpath = "//a[contains(.,'Log in')]")
+    @FindBy(xpath = "//a[@href='http://localhost:8080/auth/login']")
     private WebElementFacade loginButton;
 
 
