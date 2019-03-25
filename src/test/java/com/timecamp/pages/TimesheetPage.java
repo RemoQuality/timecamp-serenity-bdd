@@ -11,6 +11,7 @@ import java.io.IOError;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class TimesheetPage extends PageObject {
@@ -36,8 +37,11 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//button[@data-bb-handler='confirm']")
     private WebElementFacade confirmBulkDeleteButton;
 
-    @FindBy(xpath = "//div[contains(@class,'bootbox modal fade bootbox-confirm in')]")
+    @FindBy(xpath = "//div[@class='bootbox modal fade bootbox-confirm in']")
     private WebElementFacade bootboxConfirm;
+
+    @FindBy (css = "modal-backdrop fade")
+    private WebElementFacade modalFade;
 
     @FindBy(id = "timer-start-button")
     private WebElementFacade timerStartButton;
@@ -90,6 +94,8 @@ public class TimesheetPage extends PageObject {
     @FindBy (id = "timer-task-picker")
     private WebElementFacade whatAreYouWorkingOn;
 
+    @FindBy(xpath = "//i[@class='fa fa-repeat']")
+    private WebElementFacade refreshButton;
 
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
@@ -117,7 +123,8 @@ public class TimesheetPage extends PageObject {
 
     public void clickStartTimerButton(){
         bootboxConfirm.waitUntilNotVisible();
-        timerStartButton.waitUntilClickable().click();
+        modalFade.waitUntilNotVisible();
+        timerStartButton.waitUntilVisible().waitUntilClickable().click();
     }
 
     public void jsAddTaskFromTimesheet(String taskName){
@@ -141,6 +148,7 @@ public class TimesheetPage extends PageObject {
         inputWhatDidYouWorkOn.click();
         jsAddTaskWidget.waitUntilVisible().click();
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
+        jsTaskNameInput.waitUntilNotVisible();
         durationWidgetInput.typeAndEnter(durationTime);
         mainWidgetAddManually.click();
     }
@@ -152,6 +160,8 @@ public class TimesheetPage extends PageObject {
     public void getNamesAndDurationOfEntries(String totalEntryDuration){
         log.info("Names of time entries " + getNamesOfEntries.getText());
         log.info("Durations of three entries is " + summaryEntryDuration.getText());
+        refreshButton.click();
+        summaryEntryDuration.waitUntilVisible();
         Assert.assertEquals(totalEntryDuration, summaryEntryDuration.getText());
 
 
