@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/timecamp-serenity-bdd.iml" filepath="$PROJECT_DIR$/.idea/timecamp-serenity-bdd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/timecamp-serenity-bdd.iml" filepath="$PROJECT_DIR$/timecamp-serenity-bdd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/timecamp-serenity-bdd.main.iml" filepath="$PROJECT_DIR$/.idea/modules/timecamp-serenity-bdd.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/timecamp-serenity-bdd.test.iml" filepath="$PROJECT_DIR$/.idea/modules/timecamp-serenity-bdd.test.iml" />
     </modules>
   </component>
 </project>
