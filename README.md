@@ -7,8 +7,10 @@
 
 #### 2. Nastęonie należy dodać Jave do zmiennych środowiskowych `PATH`:
 [Instrukcja dla Windowsa](https://javatutorial.net/set-java-home-windows-10)
-[Instrukcja dla Linuxa] (https://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/)
-[Instrukcja dla MacOS] (https://www.mkyong.com/java/how-to-set-java_home-environment-variable-on-mac-os-x/)
+
+[Instrukcja dla Linuxa](https://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/)
+
+[Instrukcja dla MacOS](https://www.mkyong.com/java/how-to-set-java_home-environment-variable-on-mac-os-x/)
 
 #### 3. Instalujemy Mavena oraz również dodajemy go do zmiennych środowiskowych `PATH`:
 [MAVEN DOWNLOAD](https://maven.apache.org/install.html)
