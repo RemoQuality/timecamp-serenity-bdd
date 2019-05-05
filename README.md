@@ -5,14 +5,14 @@
 #### 1. Zainstaluj Java development kit 11:
 [JDK11 DOWNLOAD](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
 
-#### 2. Nastęonie należy dodać Jave do zmiennych środowiskowych `PATH`:
+#### 2. Następnie należy dodać Jave do zmiennych środowiskowych `PATH`:
 [Instrukcja dla Windowsa](https://javatutorial.net/set-java-home-windows-10)
 
 [Instrukcja dla Linuxa](https://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/)
 
 [Instrukcja dla MacOS](https://www.mkyong.com/java/how-to-set-java_home-environment-variable-on-mac-os-x/)
 
-#### 3. Instalujemy Mavena oraz również dodajemy go do zmiennych środowiskowych `PATH`:
+#### 3. Instalujemy Mavena oraz również dodajemy go do zmiennych środowiskowych `PATH` (podobnie jak robiliśmy w przypadku Javy):
 [MAVEN DOWNLOAD](https://maven.apache.org/install.html)
 
 #### 4. Używając https://chocolatey.org/ możemy zainstalować Google Chrome drivera potrzebnego do uruchamiania testów:
