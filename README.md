@@ -17,8 +17,8 @@
 
 #### 4. Używając https://chocolatey.org/ możemy zainstalować Google Chrome drivera potrzebnego do uruchamiania testów:
 `choco install chromedriver`
-W konsoli przy instalacji wyświetli nam się ścieżka, gdzie chromedriver.exe został zainstalowany, wówczas
-identycznie jak przy Mavenie oraz JDK dodajemy go do zmiennej środowiskowej `PATH`. Alternatywnie możemy samodzielnie 
+
+W konsoli przy instalacji wyświetli nam się ścieżka, gdzie chromedriver.exe został zainstalowany. Alternatywnie możemy samodzielnie 
 pobrać [CHROMEDRIVER](http://chromedriver.chromium.org/downloads) i dodać ścieżkę do zmiennej środowiskowej `PATH`, natomiast chocolatey powinien to zrobić za nas automatycznie.
 
 #### 6.Możemy zweryfikować czy Java i Maven są poprawnie zainstalowane i skonfigurowane, wpisująć w lini komend:
