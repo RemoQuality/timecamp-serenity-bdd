@@ -21,7 +21,7 @@
 W konsoli przy instalacji wyświetli nam się ścieżka, gdzie chromedriver.exe został zainstalowany. Alternatywnie możemy samodzielnie 
 pobrać [CHROMEDRIVER](http://chromedriver.chromium.org/downloads) i dodać ścieżkę do zmiennej środowiskowej `PATH`, natomiast chocolatey powinien to zrobić za nas automatycznie.
 
-#### 6.Możemy zweryfikować czy Java i Maven są poprawnie zainstalowane i skonfigurowane, wpisująć w lini komend:
+#### 6. Możemy zweryfikować czy Java i Maven są poprawnie zainstalowane i skonfigurowane, wpisująć w lini komend:
 `mvn --version` oraz `java --version`, powinniśmy ujrzeć aktualne ich wersje jak poniżej:
 ![IMAGE](https://i.imgur.com/ozT4gea.png)
 
