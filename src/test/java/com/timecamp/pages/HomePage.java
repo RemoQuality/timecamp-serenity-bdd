@@ -6,7 +6,6 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 
 
-@DefaultUrl("https://timecamp.com/")
 public class HomePage extends PageObject {
 
     @FindBy(xpath = "//a[contains(.,'Log in')]")
