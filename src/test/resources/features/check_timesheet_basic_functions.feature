@@ -8,19 +8,36 @@ Feature: Check timesheet basic functions on daily view
       |password|Selenium123|
     Then we are checking that user are on Timesheet
 
-  Scenario: On Timesheet user starting timer using main widget, add manual time entries from link under Timesheet, stop
-    timer that actually has running, then add manual time entries from main widget.
+#        #First scenario about Timesheet
+#  Scenario: On Timesheet user starting timer using main widget, add manual time entries from link under Timesheet, stop
+#    timer that actually has running, then add manual time entries from main widget.
+#
+#    Given user is on timesheet where is no time entries, when there is entries clean up by bulk delete
+#    When user start timer using main widget
+#    And created project using popup widget and chooses project
+#      |taskName| Very important testing task|
+#    And add manually time entries with duration using link under timesheet and chooses project
+#      |durationTime|2h30m|
+#    And stop timer which we started before
+#    And add manually time entries with duration using main widget and chooses project
+#      |taskName| Not that important testing task|
+#      |durationTime|6h55m|
+#    Then we are checking size of time entries on timesheet
+#    And we are checking duration of time entries
+#      |totalEntryDuration|9h 25m|
+#    And user is on timesheet where is no time entries, when there is entries clean up by bulk delete
+
+
+      #Second scenario about Timesheet
+  Scenario: On Timesheet user goes into weekly view, start timer, then draw manually time entry, stop
+  timer that actually has running.
 
     Given user is on timesheet where is no time entries, when there is entries clean up by bulk delete
-    When user start timer using main widget
+    And user is going into weekly view timesheet
+    When user start timer from weekly view with clicking button to create new task
     And created project using popup widget and chooses project
-      |taskName| Very important testing task|
-    And add manually time entries with duration using link under timesheet and chooses project
-      |durationTime|2h30m|
-    And stop timer which we started before
-    And add manually time entries with duration using main widget and chooses project
-      |taskName| Not that important testing task|
-      |durationTime|6h55m|
-    Then we are checking size of time entries on timesheet
-    And we are checking duration of time entries
-      |totalEntryDuration|9h 25m|
+      |taskName|Testing task added from weekly view|
+    And draw manually time entry on weekly view and choose created before project
+    Then we are checking size of time entries on weekly timesheet
+    And user back to daily view
+    And user is on timesheet where is no time entries, when there is entries clean up by bulk delete

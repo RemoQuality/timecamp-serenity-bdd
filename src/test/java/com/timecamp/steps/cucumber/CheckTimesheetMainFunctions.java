@@ -12,7 +12,7 @@ import net.thucydides.core.annotations.Steps;
 
 import java.util.Map;
 
-public class CheckTimesheetDailyMainFunctions {
+public class CheckTimesheetMainFunctions {
 
     @Steps
     private HomePage homepage;
@@ -62,5 +62,21 @@ public class CheckTimesheetDailyMainFunctions {
     @And("^we are checking duration of time entries$")
     public void weAreCheckingDurationOfTimeEntries(Map<String,String> data) {
         timesheetPage.getNamesAndDurationOfEntries(data.get("totalEntryDuration"));
+    }
+
+    @And("^user is going into weekly view timesheet$")
+    public void userIsGoingIntoWeeklyViewTimesheet() {
+        timesheetPage.goIntoWeeklyView();
+    }
+
+    @When("^user start timer from weekly view with clicking button to create new task$")
+    public void userStartTimerFromWeeklyViewWithClickingButtonToCreateNewTask() {
+        timesheetPage.startTimerWeekly();
+    }
+
+    @And("^draw manually time entry on weekly view and choose created before project$")
+    public void drawManuallyTimeEntryOnWeeklyViewAndChooseCreatedBeforeProject() throws InterruptedException {
+        timesheetPage.drawManuallyTimeEntry();
+        timesheetPage.stopTimerWeekly();
     }
 }
