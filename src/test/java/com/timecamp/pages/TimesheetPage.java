@@ -6,12 +6,9 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOError;
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 
 
 public class TimesheetPage extends PageObject {
@@ -19,19 +16,19 @@ public class TimesheetPage extends PageObject {
     @FindBy(id = "time_menu_link")
     private WebElementFacade timesheetTopButton;
 
-    @FindBy(xpath = "//strong[contains(.,'TOTAL')]")
+    @FindBy(xpath = "//div[@class='entry-summary-duration ng-binding']")
     private WebElementFacade totalDuration;
 
-    @FindBy(xpath = "//strong[contains(.,'TOTAL')]")
+    @FindBy(xpath = "//div[@class='entry-summary-duration ng-binding']")
     private List <WebElementFacade> durationList;
 
-    @FindBy(xpath = "//i[@title='Bulk edit']")
+    @FindBy(xpath = "//div[@ng-click='enableBulkMode()']")
     private WebElementFacade bulkEditIcon;
 
     @FindBy(xpath = "//input[contains(@ng-click,'addAllEntriesToBulkEdit(day)')]")
     private WebElementFacade checkboxBulkcheck;
 
-    @FindBy(xpath = "//a[@ng-click='deleteEntriesInBulkMode()']")
+    @FindBy(xpath = "//div[@class='ts-bulk-edit-row']//a[contains(text(),'Delete')]")
     private WebElementFacade bulkDeleteLink;
 
     @FindBy(xpath = "//button[@data-bb-handler='confirm']")
@@ -46,6 +43,9 @@ public class TimesheetPage extends PageObject {
     @FindBy(id = "timer-start-button")
     private WebElementFacade timerStartButton;
 
+    @FindBy(xpath = "//span[@title='Select task or project']")
+    private WebElementFacade selectTaskHiperLink;
+
     @FindBy(id = "js-add-task-btn-widget")
     private WebElementFacade jsAddTaskWidget;
 
@@ -55,7 +55,7 @@ public class TimesheetPage extends PageObject {
     @FindBy (id = "tcTTTaskPickerBase")
     private WebElementFacade jsBoxTask;
 
-    @FindBy(xpath = "//div[@class='pull-left btn btn-link ng-binding ng-scope'][contains(.,'Add new time entry')]")
+    @FindBy(xpath = "//div[@data-original-title='Add new time entry']")
     private WebElementFacade addTaskLink;
 
     @FindBy(id = "js-add-box-add-btn")
@@ -88,13 +88,13 @@ public class TimesheetPage extends PageObject {
     @FindBy (xpath = "//div[@class='panel panel-default pull-right entry-body']")
     private WebElementFacade getNamesOfEntries;
 
-    @FindBy(xpath = "//div[@class='entry-summary-duration']//strong")
+    @FindBy(xpath = "//div[contains(@title,'total time in all entries, excluding unassigned computer activities')]")
     private WebElementFacade summaryEntryDuration;
 
     @FindBy (id = "timer-task-picker")
     private WebElementFacade whatAreYouWorkingOn;
 
-    @FindBy(xpath = "//i[@class='fa fa-repeat']")
+    @FindBy(xpath = "//button[@data-original-title='Refresh data and synchronize integrations']")
     private WebElementFacade refreshButton;
 
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
@@ -128,7 +128,8 @@ public class TimesheetPage extends PageObject {
     }
 
     public void jsAddTaskFromTimesheet(String taskName){
-        jsAddTaskWidget.waitUntilEnabled().click();
+        selectTaskHiperLink.waitUntilPresent().click();
+        jsAddTaskWidget.waitUntilPresent().click();
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
     }
 
