@@ -97,6 +97,12 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//button[@data-original-title='Refresh data and synchronize integrations']")
     private WebElementFacade refreshButton;
 
+    @FindBy(xpath = "//a[contains(.,'Reports')]")
+    private WebElementFacade reportsSection;
+
+    @FindBy(xpath = "//a[contains(.,'Summary')]")
+    private WebElementFacade summaryReportPage;
+
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
     public void isTimesheetButtonDisplayed(boolean isTimesheet) {
@@ -112,8 +118,8 @@ public class TimesheetPage extends PageObject {
             log.info("Total duration is not present, so there is not time entries");
             totalDuration.shouldNotBeVisible();
         }else{
-            bulkEditIcon.waitUntilClickable().click();
-            checkboxBulkcheck.click();
+            bulkEditIcon.waitUntilVisible().click();
+            checkboxBulkcheck.waitUntilClickable().click();
             bulkDeleteLink.waitUntilClickable().click();
             confirmBulkDeleteButton.click();
             confirmBulkDeleteButton.waitUntilNotVisible();
@@ -144,27 +150,32 @@ public class TimesheetPage extends PageObject {
         timerStopButton.click();
     }
 
-    public void addTimeEntryFromManualMode(String taskName, String durationTime){
-        manualModeLink.click();
-        inputWhatDidYouWorkOn.click();
-        jsAddTaskWidget.waitUntilVisible().click();
-        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
-        jsTaskNameInput.waitUntilNotVisible();
-        durationWidgetInput.typeAndEnter(durationTime);
-        mainWidgetAddManually.click();
-    }
+    public void addTimeEntryFromManualMode(String taskName, String durationTime) {
+            if (manualModeLink.isVisible())
+                manualModeLink.click();
+            inputWhatDidYouWorkOn.click();
+            jsAddTaskWidget.waitUntilVisible().click();
+            jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
+            jsTaskNameInput.waitUntilNotVisible();
+            durationWidgetInput.typeAndEnter(durationTime);
+            mainWidgetAddManually.click();
+        }
     public void getTimeEntriesCount(){
         log.info("Size of time entries " + listOfEntriesOnTimesheet.size());
         Assert.assertEquals(3, listOfEntriesOnTimesheet.size());
     }
 
     public void getNamesAndDurationOfEntries(String totalEntryDuration){
-        log.info("Names of time entries " + getNamesOfEntries.getText());
-        log.info("Durations of three entries is " + summaryEntryDuration.getText());
-        refreshButton.click();
-        summaryEntryDuration.waitUntilVisible();
-        Assert.assertEquals(totalEntryDuration, summaryEntryDuration.getText());
+            log.info("Names of time entries " + getNamesOfEntries.getText());
+            log.info("Durations of three entries is " + summaryEntryDuration.getText());
+            refreshButton.click();
+            refreshButton.click();
+            summaryEntryDuration.waitUntilVisible();
+            Assert.assertEquals(totalEntryDuration, summaryEntryDuration.getText());
+        }
 
-
+    public void changePageToSummaryReport(){
+    withAction().moveToElement(reportsSection).perform();
+    summaryReportPage.waitUntilClickable().click();
     }
 }
