@@ -4,8 +4,6 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class SummaryPage extends PageObject {
@@ -35,13 +33,14 @@ public class SummaryPage extends PageObject {
     private WebElementFacade timesheetPageLink;
 
     public void selectFilterTimeFrameToToday(){
-       withAction().moveToElement(durationFilter).click(durationFilter).build().perform();
-       todayFilter.waitUntilClickable().click();
-       listDuration.waitUntilNotVisible();
+        durationFilter.waitUntilEnabled();
+        withAction().moveToElement(durationFilter).click(durationFilter).build().perform();
+        todayFilter.waitUntilEnabled().click();
+        listDuration.waitUntilNotVisible();
     }
     public void selectFilterPeopleToYou(){
         withAction().moveToElement(peopleFilter).click(peopleFilter).build().perform();
-        peopleYouFilter.waitUntilClickable().click();
+        peopleYouFilter.waitUntilEnabled().click();
         listUserPicker.waitUntilNotVisible();
     }
     public void getNamesAndDurationOfEntriesInSummary(String totalSummaryReport){

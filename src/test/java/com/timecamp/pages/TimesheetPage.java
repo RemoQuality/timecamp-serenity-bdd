@@ -94,7 +94,7 @@ public class TimesheetPage extends PageObject {
     @FindBy (id = "timer-task-picker")
     private WebElementFacade whatAreYouWorkingOn;
 
-    @FindBy(xpath = "//button[@data-original-title='Refresh data and synchronize integrations']")
+    @FindBy(xpath = "//button[@ng-click='onReload(true); synchronizeIntegrations()']")
     private WebElementFacade refreshButton;
 
     @FindBy(xpath = "//a[contains(.,'Reports')]")
@@ -134,7 +134,6 @@ public class TimesheetPage extends PageObject {
     }
 
     public void jsAddTaskFromTimesheet(String taskName){
-        selectTaskHiperLink.waitUntilPresent().click();
         jsAddTaskWidget.waitUntilPresent().click();
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
     }
