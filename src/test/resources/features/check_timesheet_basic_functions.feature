@@ -24,3 +24,4 @@ Feature: Check timesheet basic functions on daily view
     Then we are checking size of time entries on timesheet
     And we are checking duration of time entries
       |totalEntryDuration|9h 25m|
+    And user is on timesheet where is no time entries, when there is entries clean up by bulk delete
