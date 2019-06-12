@@ -32,6 +32,7 @@ public class CheckTimesheetDailyMainFunctions {
     public void userStartTimerUsingMainWidget() {
         timesheetPage.clickStartTimerButton();
     }
+
     @And("^created project using popup widget and chooses project$")
     public void createdProjectUsingPopupWidgetAndChoosesProject(Map<String,String> data) {
         timesheetPage.jsAddTaskFromTimesheet(data.get("taskName"));
