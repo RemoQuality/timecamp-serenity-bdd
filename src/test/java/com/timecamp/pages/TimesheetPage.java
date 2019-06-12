@@ -157,6 +157,7 @@ public class TimesheetPage extends PageObject {
     public void clickStartTimerButton() {
         bootboxConfirm.waitUntilNotVisible();
         modalFade.waitUntilNotVisible();
+        waitForAngularRequestsToFinish();
         timerStartButton.waitUntilVisible().waitUntilClickable().click();
     }
 
