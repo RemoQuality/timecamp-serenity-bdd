@@ -6,7 +6,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
-@CucumberOptions(features = "src/test/resources/features/check_timesheet_basic_functions.feature")
-public class CheckTimesheetBasicFunctions {
+@CucumberOptions(features = "src/test/resources/features/check_timesheet_weekly.feature")
+public class CheckTimesheetWeekly {
 
 }

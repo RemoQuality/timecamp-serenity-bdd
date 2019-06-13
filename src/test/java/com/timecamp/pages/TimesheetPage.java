@@ -3,15 +3,13 @@ package com.timecamp.pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.serenitybdd.screenplay.actions.*;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOError;
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 
 
 public class TimesheetPage extends PageObject {
@@ -19,19 +17,19 @@ public class TimesheetPage extends PageObject {
     @FindBy(id = "time_menu_link")
     private WebElementFacade timesheetTopButton;
 
-    @FindBy(xpath = "//strong[contains(.,'TOTAL')]")
+    @FindBy(xpath = "//div[@class='entry-summary-duration ng-binding']")
     private WebElementFacade totalDuration;
 
-    @FindBy(xpath = "//strong[contains(.,'TOTAL')]")
-    private List <WebElementFacade> durationList;
+    @FindBy(xpath = "//div[@class='entry-summary-duration ng-binding']")
+    private List<WebElementFacade> durationList;
 
-    @FindBy(xpath = "//i[@title='Bulk edit']")
+    @FindBy(xpath = "//div[@class='btn btn-default btn-wide-padding ng-binding']")
     private WebElementFacade bulkEditIcon;
 
     @FindBy(xpath = "//input[contains(@ng-click,'addAllEntriesToBulkEdit(day)')]")
     private WebElementFacade checkboxBulkcheck;
 
-    @FindBy(xpath = "//a[@ng-click='deleteEntriesInBulkMode()']")
+    @FindBy(xpath = "//div[@class='ts-bulk-edit-row']//a[contains(text(),'Delete')]")
     private WebElementFacade bulkDeleteLink;
 
     @FindBy(xpath = "//button[@data-bb-handler='confirm']")
@@ -40,11 +38,14 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//div[@class='bootbox modal fade bootbox-confirm in']")
     private WebElementFacade bootboxConfirm;
 
-    @FindBy (css = "modal-backdrop fade")
+    @FindBy(css = "modal-backdrop fade")
     private WebElementFacade modalFade;
 
     @FindBy(id = "timer-start-button")
     private WebElementFacade timerStartButton;
+
+    @FindBy(xpath = "//span[@title='Select task or project']")
+    private WebElementFacade selectTaskHiperLink;
 
     @FindBy(id = "js-add-task-btn-widget")
     private WebElementFacade jsAddTaskWidget;
@@ -52,10 +53,10 @@ public class TimesheetPage extends PageObject {
     @FindBy(id = "js-add-box-name")
     private WebElementFacade jsTaskNameInput;
 
-    @FindBy (id = "tcTTTaskPickerBase")
+    @FindBy(id = "tcTTTaskPickerBase")
     private WebElementFacade jsBoxTask;
 
-    @FindBy(xpath = "//div[@class='pull-left btn btn-link ng-binding ng-scope'][contains(.,'Add new time entry')]")
+    @FindBy(xpath = "//div[@data-original-title='Add new time entry']")
     private WebElementFacade addTaskLink;
 
     @FindBy(id = "js-add-box-add-btn")
@@ -76,7 +77,7 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//input[@tabindex='2']")
     private WebElementFacade durationWidgetInput;
 
-    @FindBy (id = "new-entry-task-picker")
+    @FindBy(id = "new-entry-task-picker")
     private WebElementFacade inputWhatDidYouWorkOn;
 
     @FindBy(xpath = "//a[@ng-if='canAddManually()']")
@@ -85,19 +86,50 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//div[@class='panel panel-default pull-right entry-body']//div[@class='entry-title']")
     private List<WebElementFacade> listOfEntriesOnTimesheet;
 
-    @FindBy (xpath = "//div[@class='panel panel-default pull-right entry-body']")
+    @FindBy(xpath = "//div[@class='panel panel-default pull-right entry-body']")
     private WebElementFacade getNamesOfEntries;
 
-    @FindBy(xpath = "//div[@class='entry-summary-duration']//strong")
+    @FindBy(xpath = "//div[contains(@title,'total time in all entries, excluding unassigned computer activities')]")
     private WebElementFacade summaryEntryDuration;
 
-    @FindBy (id = "timer-task-picker")
+    @FindBy(id = "timer-task-picker")
     private WebElementFacade whatAreYouWorkingOn;
 
-    @FindBy(xpath = "//i[@class='fa fa-repeat']")
+    @FindBy(xpath = "//button[@ng-click='onReload(true); synchronizeIntegrations()']")
     private WebElementFacade refreshButton;
 
+    @FindBy(xpath = "//a[contains(.,'Reports')]")
+    private WebElementFacade reportsSection;
+
+    @FindBy(xpath = "//a[contains(.,'Summary')]")
+    private WebElementFacade summaryReportPage;
+
+    @FindBy(xpath = "//a[@title='Graphical timesheet']")
+    private WebElementFacade weeklyTimesheetButton;
+
+    @FindBy(xpath = "//button[contains(@class,'btn btn-xs btn-success ng-binding')]")
+    private WebElementFacade startTimerWeeklyButton;
+
+    @FindBy(xpath = "//div[@ng-if='hasTimer()']")
+    private WebElementFacade activeTimerWeeklyButton;
+
+    @FindBy(xpath = "//span[@ng-click='selectedDay == dayno && $event.stopPropagation()']")
+    private WebElementFacade selectTaskRunningTimer;
+
+    @FindBy(xpath = "//a[@event='tt_manage'][contains(.,'Projects')]")
+    private WebElementFacade projectTopButton;
+
+    @FindBy(xpath = "//div[@ng-click='toggleTimer(data)']")
+    private WebElementFacade stopTimerWeekly;
+
+    @FindBy (xpath = "//p[@class='duration-time ng-binding ng-scope']")
+    private WebElementFacade durationOfDayWeeklyTimesheet;
+
+    @FindBy(xpath = "//a[@ng-href='#/timesheets/timer']")
+    private WebElementFacade dailyTimesheetButton;
+
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
+
 
     public void isTimesheetButtonDisplayed(boolean isTimesheet) {
         if (isTimesheet) {
@@ -108,12 +140,13 @@ public class TimesheetPage extends PageObject {
     }
 
     public void isTotalDurationDisplayed() {
-        if (durationList.size()!=1){
+        if (durationList.size() != 1) {
             log.info("Total duration is not present, so there is not time entries");
             totalDuration.shouldNotBeVisible();
-        }else{
-            bulkEditIcon.waitUntilClickable().click();
-            checkboxBulkcheck.click();
+        } else {
+            waitForAngularRequestsToFinish();
+            bulkEditIcon.waitUntilPresent().waitUntilVisible().click();
+            checkboxBulkcheck.waitUntilClickable().click();
             bulkDeleteLink.waitUntilClickable().click();
             confirmBulkDeleteButton.click();
             confirmBulkDeleteButton.waitUntilNotVisible();
@@ -121,49 +154,101 @@ public class TimesheetPage extends PageObject {
         }
     }
 
-    public void clickStartTimerButton(){
+    public void clickStartTimerButton() {
         bootboxConfirm.waitUntilNotVisible();
         modalFade.waitUntilNotVisible();
+        waitForAngularRequestsToFinish();
         timerStartButton.waitUntilVisible().waitUntilClickable().click();
     }
 
-    public void jsAddTaskFromTimesheet(String taskName){
-        jsAddTaskWidget.waitUntilEnabled().click();
+    public void jsAddTaskFromTimesheet(String taskName) {
+        jsAddTaskWidget.waitUntilPresent().waitUntilClickable().click();
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
+        jsTaskNameInput.waitUntilNotVisible();
+        jsAddTaskWidget.waitUntilNotVisible();
+        waitForAngularRequestsToFinish();
     }
 
-    public void addTaskFromLinkUnderTimesheet(String durationTime){
+    public void addTaskFromLinkUnderTimesheet(String durationTime) {
         jsBoxTask.waitUntilNotVisible();
         jsTaskNameInput.waitUntilNotVisible();
         addTaskLink.waitUntilVisible().click();
         recentlyUsedTask.click();
         durationEntryInput.typeAndEnter(durationTime);
+        waitForAngularRequestsToFinish();
     }
-    public void clickTimerStopButton(){
+
+    public void clickTimerStopButton() {
         timerStopButton.click();
     }
 
-    public void addTimeEntryFromManualMode(String taskName, String durationTime){
-        manualModeLink.click();
+    public void addTimeEntryFromManualMode(String taskName, String durationTime) {
+        if (manualModeLink.isVisible())
+            manualModeLink.click();
         inputWhatDidYouWorkOn.click();
-        jsAddTaskWidget.waitUntilVisible().click();
+        jsAddTaskWidget.waitUntilVisible().waitUntilClickable().click();
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
         jsTaskNameInput.waitUntilNotVisible();
         durationWidgetInput.typeAndEnter(durationTime);
         mainWidgetAddManually.click();
     }
-    public void getTimeEntriesCount(){
+
+    public void getTimeEntriesCount() {
         log.info("Size of time entries " + listOfEntriesOnTimesheet.size());
         Assert.assertEquals(3, listOfEntriesOnTimesheet.size());
     }
 
-    public void getNamesAndDurationOfEntries(String totalEntryDuration){
+    public void getNamesAndDurationOfEntries(String totalEntryDuration) {
         log.info("Names of time entries " + getNamesOfEntries.getText());
         log.info("Durations of three entries is " + summaryEntryDuration.getText());
         refreshButton.click();
+        refreshButton.click();
         summaryEntryDuration.waitUntilVisible();
         Assert.assertEquals(totalEntryDuration, summaryEntryDuration.getText());
+    }
 
+    public void changePageToSummaryReport() {
+        withAction().moveToElement(reportsSection).perform();
+        summaryReportPage.waitUntilClickable().click();
+    }
 
+    public void changeViewToWeekly() {
+        waitForAngularRequestsToFinish();
+        weeklyTimesheetButton.waitUntilPresent().waitUntilClickable().click();
+    }
+
+    public void clickStartButtonOnWeekly() {
+        waitForAngularRequestsToFinish();
+        Scroll.to(startTimerWeeklyButton).andAlignToBottom();
+        startTimerWeeklyButton.waitUntilClickable().click();
+        startTimerWeeklyButton.waitUntilNotVisible();
+        if (jsBoxTask.isCurrentlyVisible()) {
+            selectTaskRunningTimer.waitUntilVisible().click();
+        }
+    }
+
+    public void drawEntryInWeekly() {
+        waitForAngularRequestsToFinish();
+//        MoveMouse.to(projectTopButton)
+//                .andThen(actions -> actions.moveByOffset(100,0).build().perform())
+//                .andThen(actions -> actions.click(projectTopButton).build().perform());
+//        //projectTopButton.click();
+//        System.out.println("czy to się wykonało?");
+    }
+
+    public void clickStopTimerWeekly() {
+        waitForAngularRequestsToFinish();
+        stopTimerWeekly.waitUntilVisible().click();
+    }
+
+    public void checkTaskNameAndDuration() {
+        waitForAngularRequestsToFinish();
+        durationOfDayWeeklyTimesheet.shouldBeVisible();
+        durationOfDayWeeklyTimesheet.containsText("s4");
+        selectTaskRunningTimer.containsText("Testing task added from weekly view");
+    }
+    public void changeViewToDaily() {
+        waitForAngularRequestsToFinish();
+        dailyTimesheetButton.waitUntilPresent().waitUntilClickable().click();
     }
 }
