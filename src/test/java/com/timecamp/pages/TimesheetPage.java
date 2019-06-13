@@ -163,7 +163,5 @@ public class TimesheetPage extends PageObject {
         refreshButton.click();
         summaryEntryDuration.waitUntilVisible();
         Assert.assertEquals(totalEntryDuration, summaryEntryDuration.getText());
-
-
     }
 }
