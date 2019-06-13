@@ -26,8 +26,8 @@ public class SummaryPage extends PageObject {
     @FindBy (id = "tcUserPickerBase")
     private WebElementFacade listUserPicker;
 
-    @FindBy(xpath = "//div[@tabindex='3']")
-    private WebElementFacade totalSummaryData;
+    @FindBy(xpath = "//div[contains(@ng-style,'body.styles()')]")
+    private WebElementFacade reportPageData;
 
     @FindBy (id = "time_menu_link")
     private WebElementFacade timesheetPageLink;
@@ -44,10 +44,24 @@ public class SummaryPage extends PageObject {
         peopleYouFilter.waitUntilEnabled().click();
         listUserPicker.waitUntilNotVisible();
     }
-    public void getNamesAndDurationOfEntriesInSummary(String totalSummaryReport){
-        totalSummaryData.waitUntilVisible();
-
-        Assert.assertEquals(totalSummaryReport, totalSummaryData.getText());
+    public void getNamesAndDurationOfEntriesInSummary(
+            String summaryReport,
+            String durationTimeFirst,
+            String taskNameSecond,
+            String durationTimeSecond,
+            String taskNameThird,
+            String durationTimeThird,
+            String totalSummaryReport
+    ){
+        waitForAngularRequestsToFinish();
+        reportPageData.waitUntilVisible();
+        reportPageData.shouldContainText(summaryReport);
+        reportPageData.shouldContainText(durationTimeFirst);
+        reportPageData.shouldContainText(taskNameSecond);
+        reportPageData.shouldContainText(durationTimeSecond);
+        reportPageData.shouldContainText(taskNameThird);
+        reportPageData.shouldContainText(durationTimeThird);
+        reportPageData.shouldContainText(totalSummaryReport);
     }
     public void goIntoTimesheetPage(){
         timesheetPageLink.click();

@@ -14,7 +14,7 @@ Feature: Check reports data after we add some data on Timesheet
     Given user is on timesheet where is no time entries, when there is entries clean up by bulk delete
     When add manually time entries with duration using main widget and chooses project
       |taskName|FirstTaskForReport|
-      |durationTime|10h35m|
+      |durationTime|10h 35m|
     And add manually time entries with duration using main widget and chooses project
       |taskName|SecondTaskForReport|
       |durationTime|13m|
@@ -26,6 +26,12 @@ Feature: Check reports data after we add some data on Timesheet
     Then we are going on summary report page
     And we are changing filter of data range to today and people to our user
     And we are checking data of summary report
-      |totalSummaryReport|Total\n11h 00m\n11h 00m|
+      |taskNameFirst|FirstTaskForReport|
+      |durationTimeFirst|10h 35m|
+      |taskNameSecond|SecondTaskForReport|
+      |durationTimeSecond|13m|
+      |taskNameThird|ThirdTaskForReport|
+      |durationTimeThird|12m|
+      |totalSummaryReport|11h 00m|
     And we are going back to timesheet page
     And user is on timesheet where is no time entries, when there is entries clean up by bulk delete

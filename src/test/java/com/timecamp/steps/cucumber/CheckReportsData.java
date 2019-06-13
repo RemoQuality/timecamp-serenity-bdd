@@ -29,7 +29,16 @@ public class CheckReportsData {
     }
     @And("^we are checking data of summary report$")
     public void weAreCheckingDataOfSummaryReport(Map<String,String> data) {
-        summaryPage.getNamesAndDurationOfEntriesInSummary(data.get("totalSummaryReport"));
+        summaryPage.getNamesAndDurationOfEntriesInSummary(
+                data.get("totalSummaryReport"),
+                data.get("taskNameFirst"),
+                data.get("durationTimeFirst"),
+                data.get("taskNameSecond"),
+                data.get("durationTimeSecond"),
+                data.get("taskNameThird"),
+                data.get("durationTimeThird")
+
+        );
     }
 
     @And("^we are going back to timesheet page$")
