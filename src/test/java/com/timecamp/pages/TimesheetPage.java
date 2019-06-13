@@ -166,6 +166,7 @@ public class TimesheetPage extends PageObject {
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
         jsTaskNameInput.waitUntilNotVisible();
         jsAddTaskWidget.waitUntilNotVisible();
+        waitForAngularRequestsToFinish();
     }
 
     public void addTaskFromLinkUnderTimesheet(String durationTime) {
@@ -174,6 +175,7 @@ public class TimesheetPage extends PageObject {
         addTaskLink.waitUntilVisible().click();
         recentlyUsedTask.click();
         durationEntryInput.typeAndEnter(durationTime);
+        waitForAngularRequestsToFinish();
     }
 
     public void clickTimerStopButton() {
@@ -220,7 +222,7 @@ public class TimesheetPage extends PageObject {
         Scroll.to(startTimerWeeklyButton).andAlignToBottom();
         startTimerWeeklyButton.waitUntilClickable().click();
         startTimerWeeklyButton.waitUntilNotVisible();
-        if (!jsAddTaskWidget.isCurrentlyVisible()) {
+        if (jsBoxTask.isCurrentlyVisible()) {
             selectTaskRunningTimer.waitUntilVisible().click();
         }
     }

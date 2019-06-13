@@ -33,9 +33,10 @@ public class SummaryPage extends PageObject {
     private WebElementFacade timesheetPageLink;
 
     public void selectFilterTimeFrameToToday(){
-        durationFilter.waitUntilEnabled();
+        waitForAngularRequestsToFinish();
+        durationFilter.waitUntilVisible();
         withAction().moveToElement(durationFilter).click(durationFilter).build().perform();
-        todayFilter.waitUntilEnabled().click();
+        todayFilter.waitUntilVisible().click();
         listDuration.waitUntilNotVisible();
     }
     public void selectFilterPeopleToYou(){
@@ -45,6 +46,7 @@ public class SummaryPage extends PageObject {
     }
     public void getNamesAndDurationOfEntriesInSummary(String totalSummaryReport){
         totalSummaryData.waitUntilVisible();
+
         Assert.assertEquals(totalSummaryReport, totalSummaryData.getText());
     }
     public void goIntoTimesheetPage(){
