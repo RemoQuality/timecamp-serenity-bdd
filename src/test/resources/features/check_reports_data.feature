@@ -42,7 +42,7 @@ Feature: Check reports data after we add some data on Timesheet
 #                                       SECOND SCENARIO:                                                              #
 #====================================================================================================================#
 
-  Scenario: On today Timesheet we are adding manually entries, then going into summary report, checking that all tasks
+  Scenario: On today Timesheet we are adding manually entries, then going into detailed report, checking that all tasks
   and hours we added is there
 
     Given user is on timesheet where is no time entries, when there is entries clean up by bulk delete

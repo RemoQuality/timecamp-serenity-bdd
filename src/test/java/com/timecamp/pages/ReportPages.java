@@ -59,7 +59,7 @@ public class ReportPages extends PageObject {
             String totalSummaryReport
     ){
         waitForAngularRequestsToFinish();
-        reportPageData.waitUntilVisible();
+        reportPageData.waitUntilPresent();
         reportPageData.shouldContainText(summaryReport);
         reportPageData.shouldContainText(durationTimeFirst);
         reportPageData.shouldContainText(taskNameSecond);
@@ -84,7 +84,7 @@ public class ReportPages extends PageObject {
     ){
         LocalDate localDate = LocalDate.now();
         waitForAngularRequestsToFinish();
-        reportPageData.waitUntilVisible();
+        reportPageData.waitUntilPresent();
         reportPageData.shouldContainText(summaryReport);
         reportPageData.shouldContainText(durationTimeFirst);
         reportPageData.shouldContainText(taskNameSecond);
