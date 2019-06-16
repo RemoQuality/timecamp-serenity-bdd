@@ -1,6 +1,6 @@
 package com.timecamp.steps.cucumber;
 
-import com.timecamp.pages.SummaryPage;
+import com.timecamp.pages.ReportPages;
 import com.timecamp.pages.TimesheetPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -15,7 +15,8 @@ public class CheckReportsData {
     private TimesheetPage timesheetPage;
 
     @Steps
-    private SummaryPage summaryPage;
+    private ReportPages reportPages;
+
 
     @Then("^we are going on summary report page$")
     public void weAreGoingOnSummaryReportPage() {
@@ -24,12 +25,12 @@ public class CheckReportsData {
 
     @And("^we are changing filter of data range to today and people to our user$")
     public void weAreChangingFilterOfDataRangeToTodayAndPeopleToOurUser() {
-        summaryPage.selectFilterTimeFrameToToday();
-        summaryPage.selectFilterPeopleToYou();
+        reportPages.selectFilterTimeFrameToToday();
+        reportPages.selectFilterPeopleToYou();
     }
     @And("^we are checking data of summary report$")
     public void weAreCheckingDataOfSummaryReport(Map<String,String> data) {
-        summaryPage.getNamesAndDurationOfEntriesInSummary(
+        reportPages.getNamesAndDurationOfEntriesInSummary(
                 data.get("totalSummaryReport"),
                 data.get("taskNameFirst"),
                 data.get("durationTimeFirst"),
@@ -41,10 +42,27 @@ public class CheckReportsData {
         );
     }
 
+    @And("^we are checking data of detailed report$")
+    public void weAreCheckingDataOfDetailedReport(Map<String,String> data) {
+        reportPages.getNamesAndDurationOfEntriesInDetailed(
+                data.get("totalSummaryReport"),
+                data.get("taskNameFirst"),
+                data.get("durationTimeFirst"),
+                data.get("taskNameSecond"),
+                data.get("durationTimeSecond"),
+                data.get("taskNameThird"),
+                data.get("durationTimeThird")
+        );
+    }
+
     @And("^we are going back to timesheet page$")
     public void weAreGoingBackToTimesheetPage() {
-        summaryPage.goIntoTimesheetPage();
+        reportPages.goIntoTimesheetPage();
     }
 
 
+    @Then("^we are going on detailed report page$")
+    public void weAreGoingOnDetailedReportPage() {
+    timesheetPage.changePageToDetailedReport();
+    }
 }

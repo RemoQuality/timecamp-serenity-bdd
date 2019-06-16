@@ -128,6 +128,9 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//a[@ng-href='#/timesheets/timer']")
     private WebElementFacade dailyTimesheetButton;
 
+    @FindBy(xpath = "//a[contains(.,'Detailed')]")
+    private WebElementFacade detaliledReportPage;
+
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
 
@@ -194,15 +197,15 @@ public class TimesheetPage extends PageObject {
     }
 
     public void getTimeEntriesCount() {
+        waitForAngularRequestsToFinish();
         log.info("Size of time entries " + listOfEntriesOnTimesheet.size());
         Assert.assertEquals(3, listOfEntriesOnTimesheet.size());
     }
 
     public void getNamesAndDurationOfEntries(String totalEntryDuration) {
+        waitForAngularRequestsToFinish();
         log.info("Names of time entries " + getNamesOfEntries.getText());
         log.info("Durations of three entries is " + summaryEntryDuration.getText());
-        refreshButton.click();
-        refreshButton.click();
         summaryEntryDuration.waitUntilVisible();
         Assert.assertEquals(totalEntryDuration, summaryEntryDuration.getText());
     }
@@ -250,5 +253,10 @@ public class TimesheetPage extends PageObject {
     public void changeViewToDaily() {
         waitForAngularRequestsToFinish();
         dailyTimesheetButton.waitUntilPresent().waitUntilClickable().click();
+    }
+
+    public void changePageToDetailedReport() {
+        withAction().moveToElement(reportsSection).perform();
+        detaliledReportPage.waitUntilClickable().click();
     }
 }

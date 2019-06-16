@@ -5,8 +5,11 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class SummaryPage extends PageObject {
+
+public class ReportPages extends PageObject {
 
     @FindBy(xpath = "//button[contains(@id,'tool-bar-custom-date-btn')]")
     private WebElementFacade durationFilter;
@@ -31,6 +34,8 @@ public class SummaryPage extends PageObject {
 
     @FindBy (id = "time_menu_link")
     private WebElementFacade timesheetPageLink;
+
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public void selectFilterTimeFrameToToday(){
         waitForAngularRequestsToFinish();
@@ -63,8 +68,32 @@ public class SummaryPage extends PageObject {
         reportPageData.shouldContainText(durationTimeThird);
         reportPageData.shouldContainText(totalSummaryReport);
     }
+
     public void goIntoTimesheetPage(){
         timesheetPageLink.click();
+    }
+
+    public void getNamesAndDurationOfEntriesInDetailed(
+            String summaryReport,
+            String durationTimeFirst,
+            String taskNameSecond,
+            String durationTimeSecond,
+            String taskNameThird,
+            String durationTimeThird,
+            String totalSummaryReport
+    ){
+        LocalDate localDate = LocalDate.now();
+        waitForAngularRequestsToFinish();
+        reportPageData.waitUntilVisible();
+        reportPageData.shouldContainText(summaryReport);
+        reportPageData.shouldContainText(durationTimeFirst);
+        reportPageData.shouldContainText(taskNameSecond);
+        reportPageData.shouldContainText(durationTimeSecond);
+        reportPageData.shouldContainText(taskNameThird);
+        reportPageData.shouldContainText(durationTimeThird);
+        reportPageData.shouldContainText(totalSummaryReport);
+        reportPageData.shouldContainText(dtf.format(localDate));
+
     }
 
 }
