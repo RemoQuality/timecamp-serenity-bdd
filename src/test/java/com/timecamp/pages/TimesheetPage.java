@@ -225,8 +225,8 @@ public class TimesheetPage extends PageObject {
         Scroll.to(startTimerWeeklyButton).andAlignToBottom();
         startTimerWeeklyButton.waitUntilClickable().click();
         startTimerWeeklyButton.waitUntilNotVisible();
-        if (jsBoxTask.isCurrentlyVisible()) {
-            selectTaskRunningTimer.waitUntilVisible().click();
+        if (!jsBoxTask.isCurrentlyVisible()) {
+            selectTaskRunningTimer.click();
         }
     }
 

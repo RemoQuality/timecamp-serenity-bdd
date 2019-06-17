@@ -8,7 +8,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 
 public class HomePage extends PageObject {
 
-    @FindBy(xpath = "//a[contains(.,'Log in')]")
+    @FindBy(xpath = "//a[contains(@href, '/auth/login')]")
     private WebElementFacade loginButton;
 
 

@@ -18,7 +18,7 @@ public class LoginPage extends PageObject {
     private WebElementFacade loginButton;
 
     public void putEmailPasswordAndConfirm(String email, String password){
-        emailInput.click();
+        emailInput.waitUntilVisible().click();
         emailInput.type(email);
         passwordInput.click();
         passwordInput.typeAndEnter(password);
