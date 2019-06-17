@@ -23,8 +23,9 @@ public class CheckTimesheetDailyMainFunctions {
     @Steps
     private TimesheetPage timesheetPage;
 
-    @Given("^user is on timesheet where is no time entries, when there is entries clean up by bulk delete$")
+    @Given("^user is on daily timesheet where is no time entries, when there is entries clean up by bulk delete$")
     public void userIsOnTimesheetWhereIsNoTimeEntries() {
+        timesheetPage.isTimesheetDailyIfNotSwitchToDaily();
         timesheetPage.isTotalDurationDisplayed();
     }
 

@@ -134,6 +134,9 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//a[contains(.,'Detailed')]")
     private WebElementFacade detaliledReportPage;
 
+    @FindBy(xpath = "//a[@class='btn btn-default active ng-binding'][contains(.,'Day')]")
+    private WebElementFacade activeDailyButton;
+
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
 
@@ -160,6 +163,15 @@ public class TimesheetPage extends PageObject {
         }
     }
 
+    public void isTimesheetDailyIfNotSwitchToDaily() {
+        if (activeDailyButton.isVisible()) {
+            log.info("We are on daily timesheet");
+            activeDailyButton.shouldBeVisible();
+        } else {
+            waitForAngularRequestsToFinish();
+            dailyTimesheetButton.waitUntilVisible().click();
+        }
+    }
     public void clickStartTimerButton() {
         bootboxConfirm.waitUntilNotVisible();
         modalFade.waitUntilNotVisible();
