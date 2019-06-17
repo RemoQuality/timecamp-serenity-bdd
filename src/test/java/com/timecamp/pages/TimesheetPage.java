@@ -116,6 +116,9 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//span[@ng-click='selectedDay == dayno && $event.stopPropagation()']")
     private WebElementFacade selectTaskRunningTimer;
 
+    @FindBy(className = "graph-grid-wrapper")
+    private WebElementFacade allWeeklyCalendar;
+
     @FindBy(xpath = "//a[@event='tt_manage'][contains(.,'Projects')]")
     private WebElementFacade projectTopButton;
 
@@ -248,8 +251,7 @@ public class TimesheetPage extends PageObject {
     public void checkTaskNameAndDuration() {
         waitForAngularRequestsToFinish();
         durationOfDayWeeklyTimesheet.shouldBeVisible();
-        durationOfDayWeeklyTimesheet.containsText("s4");
-        selectTaskRunningTimer.containsText("Testing task added from weekly view");
+        allWeeklyCalendar.containsText("Testing task added from weekly view");
     }
     public void changeViewToDaily() {
         waitForAngularRequestsToFinish();
