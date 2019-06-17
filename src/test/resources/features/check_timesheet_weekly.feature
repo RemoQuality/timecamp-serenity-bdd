@@ -4,7 +4,7 @@ Feature: Check timesheet basic functions on weekly view
     Given user on TimeCamp home page
     When user open login page
     And login using bellow email and password
-      |email|r.chowaniak+selenium1@timecamp.com|
+      |email|r.chowaniak+selenium3@timecamp.com|
       |password|Selenium123|
     Then we are checking that user are on Timesheet
 

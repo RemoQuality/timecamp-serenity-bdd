@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>2.0.41</serenity.version>
-        <parallel.tests>4</parallel.tests>
+        <parallel.tests>3</parallel.tests>
     </properties>
 
     <repositories>
@@ -91,6 +91,9 @@
                         <include>**/Check*.java</include>
                     </includes>
                     <argLine>-Xmx512m</argLine>
+                    <parallel>classes</parallel>
+                    <threadCount>${parallel.tests}</threadCount>
+                    <forkCount>${parallel.tests}</forkCount>
                 </configuration>
                 <executions>
                     <execution>
