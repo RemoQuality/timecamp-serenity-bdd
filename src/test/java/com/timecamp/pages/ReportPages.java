@@ -96,4 +96,25 @@ public class ReportPages extends PageObject {
 
     }
 
+    public void getNamesAndDurationOfEntriesInPeopleByDay(
+            String summaryReport,
+            String durationTimeFirst,
+            String taskNameSecond,
+            String durationTimeSecond,
+            String taskNameThird,
+            String durationTimeThird,
+            String totalSummaryReport
+    ){
+        waitForAngularRequestsToFinish();
+        reportPageData.waitUntilPresent();
+        reportPageData.shouldContainText(summaryReport);
+        reportPageData.shouldContainText(durationTimeFirst);
+        reportPageData.shouldContainText(taskNameSecond);
+        reportPageData.shouldContainText(durationTimeSecond);
+        reportPageData.shouldContainText(taskNameThird);
+        reportPageData.shouldContainText(durationTimeThird);
+        reportPageData.shouldContainText(totalSummaryReport);
+
+    }
+
 }

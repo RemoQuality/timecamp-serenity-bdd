@@ -69,3 +69,34 @@ Feature: Check reports data after we add some data on Timesheet
       |totalSummaryReport|4h 00m|
     And we are going back to timesheet page
     And user is on daily timesheet where is no time entries, when there is entries clean up by bulk delete
+
+#                                       THIRD SCENARIO:                                                              #
+#====================================================================================================================#
+
+  Scenario: On today Timesheet we are adding manually entries, then going into people by tasks report, checking that all
+  tasks and hours we added is there
+
+    Given user is on daily timesheet where is no time entries, when there is entries clean up by bulk delete
+    When add manually time entries with duration using main widget and chooses project
+      |taskName|CleverPeopleByTask|
+      |durationTime|420s|
+    And add manually time entries with duration using main widget and chooses project
+      |taskName|FunnyPeopleByTask|
+      |durationTime|113m|
+    And add manually time entries with duration using main widget and chooses project
+      |taskName|CrazyPeopleByTask|
+      |durationTime|7240s|
+    And we are checking duration of time entries
+      |totalEntryDuration|4h 00m|
+    Then we are going on people by tasks page
+    And we are changing filter of data range to today and people to our user
+    And we are checking data of people by tasks report
+      |taskNameFirst|CleverPeopleByTask|
+      |durationTimeFirst|07m|
+      |taskNameSecond|FunnyPeopleByTask|
+      |durationTimeSecond|1h 53m|
+      |taskNameThird|CrazyPeopleByTask|
+      |durationTimeThird|2h 00m|
+      |totalSummaryReport|4h 00m|
+    And we are going back to timesheet page
+    And user is on daily timesheet where is no time entries, when there is entries clean up by bulk delete

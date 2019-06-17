@@ -134,6 +134,9 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//a[contains(.,'Detailed')]")
     private WebElementFacade detaliledReportPage;
 
+    @FindBy(xpath = "//a[contains(.,'People by tasks')]")
+    private WebElementFacade peopleByTasksReport;
+
     @FindBy(xpath = "//a[@class='btn btn-default active ng-binding'][contains(.,'Day')]")
     private WebElementFacade activeDailyButton;
 
@@ -202,8 +205,10 @@ public class TimesheetPage extends PageObject {
     }
 
     public void addTimeEntryFromManualMode(String taskName, String durationTime) {
-        if (manualModeLink.isVisible())
-            manualModeLink.click();
+        if (manualModeLink.isVisible()) {
+            withAction().moveToElement(manualModeLink).perform();
+            manualModeLink.waitUntilClickable().click();
+        }
         inputWhatDidYouWorkOn.click();
         jsAddTaskWidget.waitUntilVisible().waitUntilClickable().click();
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
@@ -273,5 +278,10 @@ public class TimesheetPage extends PageObject {
     public void changePageToDetailedReport() {
         withAction().moveToElement(reportsSection).perform();
         detaliledReportPage.waitUntilClickable().click();
+    }
+
+    public void changePageToPeopleByTasksReport() {
+        withAction().moveToElement(reportsSection).perform();
+        peopleByTasksReport.waitUntilClickable().click();
     }
 }

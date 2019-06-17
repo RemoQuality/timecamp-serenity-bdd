@@ -65,4 +65,22 @@ public class CheckReportsData {
     public void weAreGoingOnDetailedReportPage() {
     timesheetPage.changePageToDetailedReport();
     }
+
+    @Then("^we are going on people by tasks page$")
+    public void weAreGoingOnPeopleByTasksPage() {
+        timesheetPage.changePageToPeopleByTasksReport();
+    }
+
+    @And("^we are checking data of people by tasks report$")
+    public void weAreCheckingDataOfPeopleByTasksReport(Map<String,String> data) {
+        reportPages.getNamesAndDurationOfEntriesInPeopleByDay(
+                data.get("totalSummaryReport"),
+                data.get("taskNameFirst"),
+                data.get("durationTimeFirst"),
+                data.get("taskNameSecond"),
+                data.get("durationTimeSecond"),
+                data.get("taskNameThird"),
+                data.get("durationTimeThird")
+        );
+    }
 }
