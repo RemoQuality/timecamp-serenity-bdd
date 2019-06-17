@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="serenity-bdd-tests" />
         <module name="timecamp-serenity-bdd" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="serenity-bdd-tests" target="1.8" />
       <module name="timecamp-serenity-bdd" target="1.8" />
     </bytecodeTargetLevel>
   </component>

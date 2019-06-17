@@ -165,7 +165,8 @@ public class TimesheetPage extends PageObject {
     }
 
     public void jsAddTaskFromTimesheet(String taskName) {
-        jsAddTaskWidget.waitUntilPresent().waitUntilClickable().click();
+        waitForAngularRequestsToFinish();
+        jsAddTaskWidget.waitUntilVisible().click();
         jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
         jsTaskNameInput.waitUntilNotVisible();
         jsAddTaskWidget.waitUntilNotVisible();
