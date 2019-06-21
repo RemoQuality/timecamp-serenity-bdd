@@ -28,13 +28,13 @@ public class ProjectPage extends PageObject {
     private WebElementFacade inputNewTaskName;
 
     @FindBy(xpath = "//div[@class='task-name'][contains(.,'task [LEVEL 2]')]")
-    private WebElementFacade taskOnList;
+    private WebElementFacade subtaskOnList;
 
     @FindBy(xpath = "(//div[@class='btn tc-btn btn-success task-btn-add'][contains(.,'Add task')])[2]") // bardzo słaby locator
     private WebElementFacade addSubtaskOnList;
 
     @FindBy(xpath = "//input[@name='title'][contains(.,'task [LEVEL 2]')]")
-    private WebElementFacade addSubtaskConfirmation;
+    private WebElementFacade inputNewSubTask;
 
     @FindBy(id = "manageTreeTask_0")
     private WebElementFacade fullTaskTree;
@@ -56,6 +56,7 @@ public class ProjectPage extends PageObject {
 
     public void addNewProject(String projectName){
         waitForAngularRequestsToFinish();
+        fullTaskTree.waitUntilVisible();
         newProjectButton.waitUntilVisible().click();
         inputNewProjectName.type(LocalTime.now().getNano() + projectName);
         confirmNewTask.waitUntilClickable().click();
@@ -70,8 +71,9 @@ public class ProjectPage extends PageObject {
 
     public void addNewSubtask(String subtaskName){
         waitForAngularRequestsToFinish();
-        taskOnList.waitUntilClickable().click();
-        inputNewTaskName.waitUntilVisible().typeAndEnter(LocalTime.now().getNano() + subtaskName);
+        addSubtaskOnList.waitUntilVisible().click();
+        subtaskOnList.waitUntilVisible().click();
+        inputNewSubTask.waitUntilVisible().typeAndEnter(LocalTime.now().getNano() + subtaskName);
     }
 
     public void verifyAddedProjectTaskSubtask(
