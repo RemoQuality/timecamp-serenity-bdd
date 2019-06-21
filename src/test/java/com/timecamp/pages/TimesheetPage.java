@@ -1,10 +1,12 @@
 package com.timecamp.pages;
 
+import com.ibm.icu.util.Calendar;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.actions.*;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.time.LocalTime;
@@ -243,6 +245,13 @@ public class TimesheetPage extends PageObject {
 
     public void clickStartButtonOnWeekly() {
         waitForAngularRequestsToFinish();
+        Calendar cal = Calendar.getInstance();
+        final int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        withAction().moveToElement(
+                find(By.xpath("//span[@class='day-num ng-binding'][contains(.,'" + dayOfMonth + "')]")))
+                .click()
+                .build()
+                .perform(); // nie możemy dnia miesiąca wrzucić do adnotacji więc dlatego tutaj jednorazo jest lokator
         Scroll.to(startTimerWeeklyButton).andAlignToBottom();
         startTimerWeeklyButton.waitUntilClickable().click();
         startTimerWeeklyButton.waitUntilNotVisible();
