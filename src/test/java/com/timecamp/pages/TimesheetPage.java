@@ -153,6 +153,12 @@ public class TimesheetPage extends PageObject {
         }
     }
 
+    public void isTimerRunning() {
+        if (timerStopButton.isCurrentlyVisible()) {
+            log.info("Timer is running so we are stopping it");
+            timerStopButton.click();
+        }
+    }
     public void isTotalDurationDisplayed() {
         if (durationList.size() != 1) {
             log.info("Total duration is not present, so there is not time entries");
