@@ -1,7 +1,5 @@
 package com.timecamp.steps.cucumber;
 
-import com.timecamp.pages.HomePage;
-import com.timecamp.pages.LoginPage;
 import com.timecamp.pages.TimesheetPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -14,16 +12,11 @@ import java.util.Map;
 
 public class CheckTimesheetDailyMainFunctions {
 
-    @Steps
-    private HomePage homepage;
-
-    @Steps
-    private LoginPage loginPage;
 
     @Steps
     private TimesheetPage timesheetPage;
 
-    @Given("^user is on daily timesheet where is no time entries, when there is entries clean up by bulk delete$")
+    @Given("^user is on daily timesheet, no time entries, no running timer, when there is entries clean up by bulk delete$")
     public void userIsOnTimesheetWhereIsNoTimeEntries() {
         timesheetPage.isTimesheetDailyIfNotSwitchToDaily();
         timesheetPage.isTimerRunning();

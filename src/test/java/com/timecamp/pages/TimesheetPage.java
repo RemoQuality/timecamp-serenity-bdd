@@ -142,6 +142,9 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//a[@class='btn btn-default active ng-binding'][contains(.,'Day')]")
     private WebElementFacade activeDailyButton;
 
+    @FindBy(xpath = "//a[@event='tt_manage'][contains(.,'Projects')]")
+    private WebElementFacade projectsSection;
+
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
 
@@ -299,5 +302,9 @@ public class TimesheetPage extends PageObject {
     public void changePageToPeopleByTasksReport() {
         withAction().moveToElement(reportsSection).perform();
         peopleByTasksReport.waitUntilClickable().click();
+    }
+
+    public void changePageToProjectsSection() {
+       projectsSection.waitUntilClickable().click();
     }
 }
