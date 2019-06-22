@@ -3,6 +3,8 @@ package com.timecamp.pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalTime;
 
@@ -28,7 +30,7 @@ public class ProjectPage extends PageObject {
     private WebElementFacade inputNewTaskName;
 
     @FindBy(xpath = "//div[@class='task-name'][contains(.,'task [LEVEL 2]')]")
-    private WebElementFacade subtaskOnList;
+    private WebElementFacade taskOnList;
 
     @FindBy(xpath = "(//div[@class='btn tc-btn btn-success task-btn-add'][contains(.,'Add task')])[2]") // bardzo słaby locator
     private WebElementFacade addSubtaskOnList;
@@ -54,25 +56,38 @@ public class ProjectPage extends PageObject {
     @FindBy(id = "time_menu_link")
     private WebElementFacade timesheetTopButton;
 
-    public void addNewProject(String projectName){
+    @FindBy(xpath = "//li[contains(.,'No projects')]")
+    private WebElementFacade noProjects;
+
+    private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
+
+    public void addNewProject(String projectName) {
         waitForAngularRequestsToFinish();
-        fullTaskTree.waitUntilVisible();
+        if (noProjects.isCurrentlyVisible()){
+            log.info("there is no project");
+        }else{
+            fullTaskTree.waitUntilVisible();
+            log.info("there is project list");
+        }
         newProjectButton.waitUntilVisible().click();
         inputNewProjectName.type(LocalTime.now().getNano() + projectName);
         confirmNewTask.waitUntilClickable().click();
     }
     public void addNewTask(String taskName){
         waitForAngularRequestsToFinish();
-        projectOnList.waitUntilClickable().click();
-        addTaskOnList.waitUntilClickable().click();
+        projectOnList.click();
+        withAction().moveToElement(addTaskOnList).build().perform();
+        addTaskOnList.click();
         inputNewTaskName.click();
         inputNewTaskName.waitUntilVisible().typeAndEnter(LocalTime.now().getNano() + taskName);
     }
 
     public void addNewSubtask(String subtaskName){
         waitForAngularRequestsToFinish();
-        addSubtaskOnList.waitUntilVisible().click();
-        subtaskOnList.waitUntilVisible().click();
+        taskOnList.click();
+        withAction().moveToElement(addSubtaskOnList).build().perform();
+        addSubtaskOnList.click();
+        inputNewSubTask.click();
         inputNewSubTask.waitUntilVisible().typeAndEnter(LocalTime.now().getNano() + subtaskName);
     }
 

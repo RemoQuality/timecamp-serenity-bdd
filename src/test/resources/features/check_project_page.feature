@@ -4,7 +4,7 @@ Feature: Check project page functionality
     Given user on TimeCamp home page
     When user open login page
     And login using bellow email and password
-      |email|r.chowaniak+selenium1@timecamp.com|
+      |email|r.chowaniak+selenium3@timecamp.com|
       |password|Selenium123|
     Then we are checking that user are on Timesheet
 
@@ -18,7 +18,7 @@ Feature: Check project page functionality
     And user add task using button located on project added before
       |taskName|task [LEVEL 2]|
     And user add subtask using button located on task added before
-      |taskName|subtask [LEVEL 3]|
+      |subtaskName|subtask [LEVEL 3]|
     Then we are checking that all added task are listed
     And user is deleting added project, task, subtask
     And we are going back to timesheet
