@@ -194,7 +194,7 @@ public class TimesheetPage extends PageObject {
     public void jsAddTaskFromTimesheet(String taskName) {
         waitForAngularRequestsToFinish();
         jsAddTaskWidget.waitUntilVisible().click();
-        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
+        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + " " + taskName);
         jsTaskNameInput.waitUntilNotVisible();
         jsAddTaskWidget.waitUntilNotVisible();
         waitForAngularRequestsToFinish();
@@ -220,7 +220,7 @@ public class TimesheetPage extends PageObject {
         }
         inputWhatDidYouWorkOn.click();
         jsAddTaskWidget.waitUntilVisible().waitUntilClickable().click();
-        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
+        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + " " + taskName);
         jsTaskNameInput.waitUntilNotVisible();
         durationWidgetInput.typeAndEnter(durationTime);
         mainWidgetAddManually.click();
@@ -252,6 +252,7 @@ public class TimesheetPage extends PageObject {
 
     public void clickStartButtonOnWeekly() {
         waitForAngularRequestsToFinish();
+        jsBoxTask.waitUntilNotVisible();
         Calendar cal = Calendar.getInstance();
         final int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
         withAction().moveToElement(

@@ -35,18 +35,29 @@ public class ReportPages extends PageObject {
     @FindBy (id = "time_menu_link")
     private WebElementFacade timesheetPageLink;
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    @FindBy(xpath = "//li[@class='dropdown-header'][contains(.,'Time reports')]")
+    private WebElementFacade reportsPagesDropDown;
 
     public void selectFilterTimeFrameToToday(){
+        if (reportsPagesDropDown.isCurrentlyVisible())
+            withAction().moveToElement(timesheetPageLink).build().perform();
+
+        reportPageData.waitUntilVisible();
         waitForAngularRequestsToFinish();
-        durationFilter.waitUntilVisible();
+        durationFilter.waitUntilVisible().waitUntilClickable();
         withAction().moveToElement(durationFilter).click(durationFilter).build().perform();
         todayFilter.waitUntilVisible().click();
         listDuration.waitUntilNotVisible();
     }
     public void selectFilterPeopleToYou(){
+        if (reportsPagesDropDown.isCurrentlyVisible())
+            withAction().moveToElement(timesheetPageLink).build().perform();
+
+        reportPageData.waitUntilVisible();
+        waitForAngularRequestsToFinish();
+        peopleFilter.waitUntilVisible().waitUntilClickable();
         withAction().moveToElement(peopleFilter).click(peopleFilter).build().perform();
-        peopleYouFilter.waitUntilEnabled().click();
+        peopleYouFilter.waitUntilVisible().click();
         listUserPicker.waitUntilNotVisible();
     }
     public void getNamesAndDurationOfEntriesInSummary(
@@ -82,6 +93,7 @@ public class ReportPages extends PageObject {
             String durationTimeThird,
             String totalSummaryReport
     ){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.now();
         waitForAngularRequestsToFinish();
         reportPageData.waitUntilPresent();
