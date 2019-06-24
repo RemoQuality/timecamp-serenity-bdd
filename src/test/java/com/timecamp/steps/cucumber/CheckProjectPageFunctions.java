@@ -48,8 +48,8 @@ public class CheckProjectPageFunctions {
     }
 
     @And("^user is deleting added project, task, subtask$")
-    public void userIsDeletingAddedProjectTaskSubtask() {
-        projectPage.addNewSubtask();
+    public void userIsDeletingAddedProjectTaskSubtask(){
+    projectPage.deleteProjectFromActions();
     }
 
     @And("^we are going back to timesheet$")
