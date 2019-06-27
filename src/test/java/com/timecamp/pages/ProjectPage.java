@@ -58,6 +58,9 @@ public class ProjectPage extends PageObject {
     @FindBy(xpath = "(//a[@class='task-btn-delete'][contains(.,'Delete')])[1]")
     private WebElementFacade deleteFromMoreActions;
 
+    @FindBy(xpath = "(//a[@class='task-btn-clone tooltipDescriptionBox tooltipDescriptionBox'])[1]")
+    private WebElementFacade cloneFromMoreActions;
+
     @FindBy(xpath = "//button[@data-bb-handler='confirm'][contains(.,'OK')]")
     private WebElementFacade confirmDeleteOK;
 
@@ -73,13 +76,15 @@ public class ProjectPage extends PageObject {
     @FindBy(xpath = "//a[@class='btn tc-btn btn-default editTaskBox-cancelBtn']")
     private WebElementFacade cancelButtonBox;
 
+    @FindBy(id = "manageTasksTreeCollapseAll")
+    private WebElementFacade collapseAllProjects;
+
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
     public void addNewProject(String projectName) {
         waitForAngularRequestsToFinish();
         System.out.println("Total projects on list is " + allProjectsList.size());
         if (noProjects.isCurrentlyVisible()) {
-            noProjects.shouldNotBeVisible();
             log.info("there is no project");
         } else {
             log.info("We are cleaning all projects on this page");
@@ -98,12 +103,11 @@ public class ProjectPage extends PageObject {
                 deleteFromMoreActions.waitUntilNotVisible();
                 fadeModal.waitUntilNotVisible();
                 waitForAngularRequestsToFinish();
-
             }
-            newProjectButton.waitUntilVisible().click();
-            inputNewProjectName.type(LocalTime.now().getNano() + " " + projectName);
-            confirmNewTask.waitUntilClickable().click();
         }
+        newProjectButton.waitUntilVisible().click();
+        inputNewProjectName.type(LocalTime.now().getNano() + " " + projectName);
+        confirmNewTask.waitUntilClickable().click();
     }
     public void addNewTask(String taskName){
         waitForAngularRequestsToFinish();
@@ -123,7 +127,7 @@ public class ProjectPage extends PageObject {
         withAction().moveToElement(cancelButtonBox).click().build().perform();
     }
 
-    public void verifyAddedProjectTaskSubtask(
+    public void verifyAddedProjectTask(
             String projectName,
             String taskName,
             String subtaskName
@@ -135,18 +139,41 @@ public class ProjectPage extends PageObject {
         levelThreeTasks.shouldContainText(subtaskName);
     }
 
-    public void deleteProjectFromActions(){
+    public void verifyClonedProject(String projectName    ){
         waitForAngularRequestsToFinish();
-        projectOnList.waitUntilVisible().click();
-        moreActionsProject.waitUntilVisible().click();
-        deleteFromMoreActions.waitUntilVisible().click();
-        confirmDeleteOK.waitUntilClickable().click();
-        confirmDeleteOK.waitUntilNotVisible();
-        fadeModal.waitUntilNotVisible();
+        fullTaskTree.waitUntilPresent();
+        fullTaskTree.shouldContainText(projectName);
+    }
 
+    public void deleteProjectFromActions(){
+            int p = 0;
+            while (allProjectsList.size() >= 1) {
+                p++;
+                System.out.println("Task number " + p + " is deleted");
+                waitForAngularRequestsToFinish();
+                firstProjectOnList.click();
+                waitForAngularRequestsToFinish();
+                moreActionsProject.waitUntilVisible().click();
+                deleteFromMoreActions.waitUntilVisible().click();
+                confirmDeleteOK.waitUntilClickable().click();
+                confirmDeleteOK.waitUntilNotVisible();
+                deleteFromMoreActions.waitUntilNotVisible();
+                fadeModal.waitUntilNotVisible();
+                waitForAngularRequestsToFinish();
+            }
     }
     public void goingBackToTimesheet(){
         timesheetTopButton.waitUntilClickable().click();
+    }
+    public void cloneProject(){
+        waitForAngularRequestsToFinish();
+        projectOnList.waitUntilVisible().click();
+        moreActionsProject.waitUntilVisible().click();
+        cloneFromMoreActions.waitUntilVisible().click();
+        confirmDeleteOK.waitUntilClickable().click();
+        confirmDeleteOK.waitUntilNotVisible();
+        deleteFromMoreActions.waitUntilNotVisible();
+        fadeModal.waitUntilNotVisible();
     }
 
 }

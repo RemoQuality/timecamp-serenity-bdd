@@ -41,11 +41,16 @@ public class CheckProjectPageFunctions {
 
     @Then("^we are checking that all added task are listed$")
     public void weAreCheckingThatAllAddedTaskAreListed(Map<String,String> data) {
-        projectPage.verifyAddedProjectTaskSubtask(
+        projectPage.verifyAddedProjectTask(
                 data.get("projectName"),
                 data.get("taskName"),
                 data.get("subtaskName"));
     }
+    @Then("^we are checking that cloned project is listed$")
+    public void weAreCheckingThatClonedProjectIsListed(Map<String,String> data) {
+        projectPage.verifyClonedProject(data.get("projectName"));
+    }
+
 
     @And("^user is deleting added project, task, subtask$")
     public void userIsDeletingAddedProjectTaskSubtask(){
@@ -55,5 +60,10 @@ public class CheckProjectPageFunctions {
     @And("^we are going back to timesheet$")
     public void weAreGoingBackToTimesheet() {
     projectPage.goingBackToTimesheet();
+    }
+
+    @And("^user is cloning created project$")
+    public void userIsCloningCreatedProject() {
+        projectPage.cloneProject();
     }
 }
