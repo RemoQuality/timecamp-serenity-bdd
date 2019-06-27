@@ -10,7 +10,7 @@ Feature: Check reports data after we add some data on Timesheet
 
 #                                       FIRST SCENARIO:                                                              #
 #====================================================================================================================#
-
+  @REPORT_PAGE
   Scenario: On today Timesheet we are adding manually entries, then going into summary report, checking that all tasks
     and hours we added is there
 
@@ -41,7 +41,7 @@ Feature: Check reports data after we add some data on Timesheet
 
 #                                       SECOND SCENARIO:                                                              #
 #====================================================================================================================#
-
+  @REPORT_PAGE
   Scenario: On today Timesheet we are adding manually entries, then going into detailed report, checking that all tasks
   and hours we added is there
 
@@ -72,7 +72,7 @@ Feature: Check reports data after we add some data on Timesheet
 
 #                                       THIRD SCENARIO:                                                              #
 #====================================================================================================================#
-
+  @REPORT_PAGE
   Scenario: On today Timesheet we are adding manually entries, then going into people by tasks report, checking that all
   tasks and hours we added is there
 

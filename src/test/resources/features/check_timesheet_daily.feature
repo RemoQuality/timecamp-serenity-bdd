@@ -8,6 +8,7 @@ Feature: Check timesheet basic functions on daily view
       |password|Selenium123|
     Then we are checking that user are on Timesheet
 
+@DAILY_TIMESHEET
   Scenario: On Timesheet user starting timer using main widget, add manual time entries from link under Timesheet, stop
     timer that actually has running, then add manual time entries from main widget.
 

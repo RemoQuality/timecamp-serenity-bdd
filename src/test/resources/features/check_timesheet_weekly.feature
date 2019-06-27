@@ -8,6 +8,7 @@ Feature: Check timesheet basic functions on weekly view
       |password|Selenium123|
     Then we are checking that user are on Timesheet
 
+@WEEKLY_TIMESHEET
   Scenario: On Timesheet user goes into weekly view, start timer, then draw manually time entry, stop
   timer that actually has running and checking all added data that is equal that expected.
 

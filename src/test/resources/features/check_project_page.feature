@@ -12,7 +12,7 @@ Feature: Check project page functionality
 
 #                                       FIRST SCENARIO:                                                              #
 #====================================================================================================================#
-  @Test
+  @PROJECT_PAGE
   Scenario: We are going after login to project page, then add project, add task, add subtask. After this delete added
     projects
 
@@ -31,7 +31,7 @@ Feature: Check project page functionality
 
 #                                       SECOND SCENARIO:                                                              #
 #====================================================================================================================#
-  @Test
+  @PROJECT_PAGE
   Scenario: We are going after login to project page, then add project, add task, add subtask. After we are cloning
   created project with task and subtask.
 

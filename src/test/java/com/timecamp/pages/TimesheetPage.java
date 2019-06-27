@@ -263,7 +263,6 @@ public class TimesheetPage extends PageObject {
                 .click()
                 .build()
                 .perform(); // nie możemy dnia miesiąca wrzucić do adnotacji więc dlatego tutaj jednorazo jest lokator
-        Scroll.to(startTimerWeeklyButton).andAlignToBottom();
         startTimerWeeklyButton.waitUntilClickable().click();
         startTimerWeeklyButton.waitUntilNotVisible();
         if (!jsBoxTask.isCurrentlyVisible()) {
