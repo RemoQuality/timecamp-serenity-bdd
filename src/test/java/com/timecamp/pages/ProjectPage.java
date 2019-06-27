@@ -3,8 +3,6 @@ package com.timecamp.pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,42 +77,33 @@ public class ProjectPage extends PageObject {
 
     public void addNewProject(String projectName) {
         waitForAngularRequestsToFinish();
-        System.out.println(allProjectsList.size());
+        System.out.println("Total projects on list is " + allProjectsList.size());
         if (noProjects.isCurrentlyVisible()) {
             noProjects.shouldNotBeVisible();
             log.info("there is no project");
         } else {
             log.info("We are cleaning all projects on this page");
             fullTaskTree.waitUntilVisible();
-            int i=0;
-            while (allProjectsList.size() > 1){
+            int i = 0;
+            while (allProjectsList.size() >= 1) {
                 i++;
                 System.out.println("Task number " + i + " is deleted");
                 waitForAngularRequestsToFinish();
-                try {
                 firstProjectOnList.click();
-
-                } catch (StaleElementReferenceException ex){
-                log.info("ReferenceException");
-                firstProjectOnList.waitUntilPresent().click();
-
-                } catch (ElementNotVisibleException ex){
-                log.info("VisibleException");
-                    firstProjectOnList.waitUntilVisible().click();
-                }
                 waitForAngularRequestsToFinish();
                 moreActionsProject.waitUntilVisible().click();
                 deleteFromMoreActions.waitUntilVisible().click();
                 confirmDeleteOK.waitUntilClickable().click();
                 confirmDeleteOK.waitUntilNotVisible();
+                deleteFromMoreActions.waitUntilNotVisible();
                 fadeModal.waitUntilNotVisible();
                 waitForAngularRequestsToFinish();
-                fullTaskTree.waitUntilVisible();
+
             }
-        }
             newProjectButton.waitUntilVisible().click();
             inputNewProjectName.type(LocalTime.now().getNano() + " " + projectName);
             confirmNewTask.waitUntilClickable().click();
+        }
     }
     public void addNewTask(String taskName){
         waitForAngularRequestsToFinish();
