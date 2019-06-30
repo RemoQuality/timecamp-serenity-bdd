@@ -11,8 +11,14 @@ public class HomePage extends PageObject {
     @FindBy(xpath = "//a[contains(@href, '/auth/login')]")
     private WebElementFacade loginButton;
 
+    @FindBy(xpath = "//a[contains(@href, '/auth/register')]")
+    private WebElementFacade signUpButton;
+
 
     public void openLoginPage(){
         loginButton.click();
+    }
+    public void openRegistrationPage(){
+        signUpButton.click();
     }
 }

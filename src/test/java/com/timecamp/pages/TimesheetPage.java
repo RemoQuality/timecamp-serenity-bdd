@@ -147,6 +147,9 @@ public class TimesheetPage extends PageObject {
 
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
+    @FindBy(id = "dots")
+    private WebElementFacade preparingAccountMessage;
+
 
     public void isTimesheetButtonDisplayed(boolean isTimesheet) {
         if (isTimesheet) {
@@ -306,5 +309,12 @@ public class TimesheetPage extends PageObject {
 
     public void changePageToProjectsSection() {
        projectsSection.waitUntilClickable().click();
+    }
+
+    public void checkThatAccountCreated() {
+        preparingAccountMessage.shouldBeVisible();
+        preparingAccountMessage.waitUntilNotVisible();
+        waitForAngularRequestsToFinish();
+        waitForAnyTextToAppear(timesheetTopButton, "Timesheet");
     }
 }

@@ -4,7 +4,7 @@ Feature: Check project page functionality
     Given user on TimeCamp home page
     When user open login page
     And login using bellow email and password
-      |email|r.chowaniak+selenium1@timecamp.com|
+      |email|r.chowaniak+selenium10@timecamp.com|
       |password|Selenium123|
     Then we are checking that user are on Timesheet
     And user is on daily timesheet, no time entries, no running timer, when there is entries clean up by bulk delete

@@ -5,8 +5,7 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 
-
-public class LoginPage extends PageObject {
+public class RegistrationPage extends PageObject {
 
     @FindBy(id = "email")
     private WebElementFacade emailInput;
@@ -14,7 +13,7 @@ public class LoginPage extends PageObject {
     @FindBy(id = "pass_hash")
     private WebElementFacade passwordInput;
 
-    @FindBy (id = "go")
+    @FindBy (id = "register2")
     private WebElementFacade loginButton;
 
     public void putEmailPasswordAndConfirm(String email, String password){
