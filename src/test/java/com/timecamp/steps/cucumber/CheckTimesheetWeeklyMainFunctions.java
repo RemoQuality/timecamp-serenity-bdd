@@ -1,7 +1,5 @@
 package com.timecamp.steps.cucumber;
 
-import com.timecamp.pages.HomePage;
-import com.timecamp.pages.LoginPage;
 import com.timecamp.pages.TimesheetPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,11 +11,6 @@ import java.util.Map;
 
 public class CheckTimesheetWeeklyMainFunctions {
 
-    @Steps
-    private HomePage homepage;
-
-    @Steps
-    private LoginPage loginPage;
 
     @Steps
     private TimesheetPage timesheetPage;

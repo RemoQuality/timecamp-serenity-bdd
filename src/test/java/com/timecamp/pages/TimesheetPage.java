@@ -142,6 +142,9 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//a[@class='btn btn-default active ng-binding'][contains(.,'Day')]")
     private WebElementFacade activeDailyButton;
 
+    @FindBy(xpath = "//a[@event='tt_manage'][contains(.,'Projects')]")
+    private WebElementFacade projectsSection;
+
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
 
@@ -159,6 +162,7 @@ public class TimesheetPage extends PageObject {
             timerStopButton.click();
         }
     }
+
     public void isTotalDurationDisplayed() {
         if (durationList.size() != 1) {
             log.info("Total duration is not present, so there is not time entries");
@@ -193,7 +197,7 @@ public class TimesheetPage extends PageObject {
     public void jsAddTaskFromTimesheet(String taskName) {
         waitForAngularRequestsToFinish();
         jsAddTaskWidget.waitUntilVisible().click();
-        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
+        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + " " + taskName);
         jsTaskNameInput.waitUntilNotVisible();
         jsAddTaskWidget.waitUntilNotVisible();
         waitForAngularRequestsToFinish();
@@ -219,7 +223,7 @@ public class TimesheetPage extends PageObject {
         }
         inputWhatDidYouWorkOn.click();
         jsAddTaskWidget.waitUntilVisible().waitUntilClickable().click();
-        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + taskName);
+        jsTaskNameInput.typeAndEnter(LocalTime.now().getNano() + " " + taskName);
         jsTaskNameInput.waitUntilNotVisible();
         durationWidgetInput.typeAndEnter(durationTime);
         mainWidgetAddManually.click();
@@ -251,6 +255,7 @@ public class TimesheetPage extends PageObject {
 
     public void clickStartButtonOnWeekly() {
         waitForAngularRequestsToFinish();
+        jsBoxTask.waitUntilNotVisible();
         Calendar cal = Calendar.getInstance();
         final int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
         withAction().moveToElement(
@@ -258,7 +263,6 @@ public class TimesheetPage extends PageObject {
                 .click()
                 .build()
                 .perform(); // nie możemy dnia miesiąca wrzucić do adnotacji więc dlatego tutaj jednorazo jest lokator
-        Scroll.to(startTimerWeeklyButton).andAlignToBottom();
         startTimerWeeklyButton.waitUntilClickable().click();
         startTimerWeeklyButton.waitUntilNotVisible();
         if (!jsBoxTask.isCurrentlyVisible()) {
@@ -298,5 +302,9 @@ public class TimesheetPage extends PageObject {
     public void changePageToPeopleByTasksReport() {
         withAction().moveToElement(reportsSection).perform();
         peopleByTasksReport.waitUntilClickable().click();
+    }
+
+    public void changePageToProjectsSection() {
+       projectsSection.waitUntilClickable().click();
     }
 }

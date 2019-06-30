@@ -8,10 +8,11 @@ Feature: Check timesheet basic functions on daily view
       |password|Selenium123|
     Then we are checking that user are on Timesheet
 
+@DAILY_TIMESHEET
   Scenario: On Timesheet user starting timer using main widget, add manual time entries from link under Timesheet, stop
     timer that actually has running, then add manual time entries from main widget.
 
-    Given user is on daily timesheet where is no time entries, when there is entries clean up by bulk delete
+    Given user is on daily timesheet, no time entries, no running timer, when there is entries clean up by bulk delete
     When user start timer using main widget
     And created project using popup widget and chooses project
       |taskName| Very important testing task|
@@ -24,4 +25,4 @@ Feature: Check timesheet basic functions on daily view
     Then we are checking size of time entries on timesheet
     And we are checking duration of time entries
       |totalEntryDuration|9h 25m|
-    And user is on daily timesheet where is no time entries, when there is entries clean up by bulk delete
+    And user is on daily timesheet, no time entries, no running timer, when there is entries clean up by bulk delete
