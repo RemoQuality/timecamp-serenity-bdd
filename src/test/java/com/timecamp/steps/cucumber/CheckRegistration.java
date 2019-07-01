@@ -28,7 +28,10 @@ public class CheckRegistration {
 
     @And("^input email and password$")
     public void loginUsingBellowCredentials(Map<String,String> data) {
-        registrationPage.putEmailPasswordAndConfirm(data.get("email"),data.get("password"));
+        registrationPage.putEmailPasswordAndConfirm(
+                data.get("login"),
+                data.get("domain"),
+                data.get("password"));
     }
 
     @Then("^we are checking that account is properly created$")
