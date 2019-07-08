@@ -319,6 +319,8 @@ public class TimesheetPage extends PageObject {
     public void checkThatAccountCreated() {
         preparingAccountMessage.shouldBeVisible();
         preparingAccountMessage.waitUntilNotVisible();
+        timesheetTopButton.click();
+        bulkEditIcon.shouldBeVisible();
         waitForAngularRequestsToFinish();
         waitForAnyTextToAppear(timesheetTopButton, "Timesheet");
     }
