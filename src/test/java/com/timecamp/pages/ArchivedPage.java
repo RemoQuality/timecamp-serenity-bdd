@@ -39,17 +39,15 @@ public class ArchivedPage extends PageObject {
         archivedTree.shouldContainText(projectName);
     }
     public void reactivateProjectsAndBackProjectPage() {
-        if (!firstReactivateButton.isCurrentlyVisible()) {
-            log.info("There is no projects to rectivate");
-        } else {
-            while(listOfArchivedProjects.size() >= 1){
-                withAction().moveToElement(firstReactivateButton)
+        while(listOfArchivedProjects.size() >= 1){
+            firstReactivateButton.waitUntilPresent();
+            withAction().moveToElement(firstReactivateButton)
                         .click()
                         .build()
                         .perform();
                 waitForAngularRequestsToFinish();
         }
-        }
-        topProjectPage.click();
+
+        topProjectPage.waitUntilVisible().click();
     }
 }
