@@ -1,5 +1,7 @@
 package com.timecamp.steps.cucumber;
 
+import com.timecamp.pages.ArchivedPage;
+import com.timecamp.pages.ImportPage;
 import com.timecamp.pages.ProjectPage;
 import com.timecamp.pages.TimesheetPage;
 import cucumber.api.java.en.And;
@@ -18,6 +20,12 @@ public class CheckProjectPageFunctions {
     @Steps
     private ProjectPage projectPage;
 
+    @Steps
+    private ImportPage importPage;
+
+    @Steps
+    private ArchivedPage archivedPage;
+
 
     @And("^user is going into project page$")
     public void userIsGoingIntoProjectPage() {
@@ -26,6 +34,7 @@ public class CheckProjectPageFunctions {
 
     @When("^user on project page is adding a project using main widget$")
     public void userOnProjectPageIsAddingAProjectLEVELUsingMainWidget(Map<String,String> data) {
+        projectPage.cleanUpProjects();
         projectPage.addNewProject(data.get("projectName"));
     }
 
@@ -54,7 +63,7 @@ public class CheckProjectPageFunctions {
 
     @And("^user is deleting added project, task, subtask$")
     public void userIsDeletingAddedProjectTaskSubtask(){
-    projectPage.deleteProjectFromActions();
+        projectPage.cleanUpProjects();
     }
 
     @And("^we are going back to timesheet$")
@@ -65,5 +74,26 @@ public class CheckProjectPageFunctions {
     @And("^user is cloning created project$")
     public void userIsCloningCreatedProject() {
         projectPage.cloneProject();
+    }
+
+    @And("^user is going to archive created project$")
+    public void userIsGoingToArchiveCreatedProject() {
+        projectPage.archiveProject();
+    }
+
+    @When("^user is going into import page and add projects using CSV$")
+    public void userIsGoingIntoImportPage(Map<String,String> data) {
+        projectPage.goToImportPage();
+        importPage.checkThatIsImportPage();
+        importPage.importDataUsingCsv(data.get("csvImportData"));
+    }
+
+    @Then("^we are going to archived page check that project was archived, reactivate it and back to project page$")
+    public void weAreGoingToArchivedPageCheckThatProjectWasArchivedReactivateItAndBackToProjectPage(Map<String,String> data) {
+        projectPage.goToArchivedPage();
+        archivedPage.checkThatIsArchivedPage();
+        archivedPage.checkThatProjectIsOnList(data.get("projectName"));
+        archivedPage.reactivateProjectsAndBackProjectPage();
+
     }
 }

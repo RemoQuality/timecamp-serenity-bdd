@@ -25,6 +25,9 @@ public class ProjectPage extends PageObject {
     @FindBy(xpath = "//div[@class='task-name'][contains(.,'project [LEVEL 1]')]")
     private WebElementFacade projectOnList;
 
+    @FindBy(xpath = "//div[@class='task-name'][contains(.,'oldProject [LEVEL 1]')]")
+    private WebElementFacade projectOnListToArchive;
+
     @FindBy(xpath = "(//div[@class='task-name'])[1]", timeoutInSeconds="10")
     private WebElementFacade firstProjectOnList;
 
@@ -61,6 +64,9 @@ public class ProjectPage extends PageObject {
     @FindBy(xpath = "(//a[@class='task-btn-clone tooltipDescriptionBox tooltipDescriptionBox'])[1]")
     private WebElementFacade cloneFromMoreActions;
 
+    @FindBy(xpath = "(//a[@class='task-btn-archive'][contains(.,'Archive')])[1]")
+    private WebElementFacade archiveFromMoreActions;
+
     @FindBy(xpath = "//button[@data-bb-handler='confirm'][contains(.,'OK')]")
     private WebElementFacade confirmDeleteOK;
 
@@ -79,32 +85,19 @@ public class ProjectPage extends PageObject {
     @FindBy(id = "manageTasksTreeCollapseAll")
     private WebElementFacade collapseAllProjects;
 
+    @FindBy(xpath = "//i[@class='far fa-ellipsis-h show-more-icon']")
+    private WebElementFacade topEllipsis;
+
+    @FindBy(xpath = "//a[contains(@href, '/time_tracking/import')]")
+    private WebElementFacade importFromCsv;
+
+    @FindBy (xpath = "//a[contains(@href, '/time_tracking/archived')]")
+    private WebElementFacade archivedPageButton;
+
     private Logger log = LoggerFactory.getLogger(TimesheetPage.class);
 
     public void addNewProject(String projectName) {
         waitForAngularRequestsToFinish();
-        System.out.println("Total projects on list is " + allProjectsList.size());
-        if (noProjects.isCurrentlyVisible()) {
-            log.info("there is no project");
-        } else {
-            log.info("We are cleaning all projects on this page");
-            fullTaskTree.waitUntilVisible();
-            int i = 0;
-            while (allProjectsList.size() >= 1) {
-                i++;
-                System.out.println("Task number " + i + " is deleted");
-                waitForAngularRequestsToFinish();
-                firstProjectOnList.click();
-                waitForAngularRequestsToFinish();
-                moreActionsProject.waitUntilVisible().click();
-                deleteFromMoreActions.waitUntilVisible().click();
-                confirmDeleteOK.waitUntilClickable().click();
-                confirmDeleteOK.waitUntilNotVisible();
-                deleteFromMoreActions.waitUntilNotVisible();
-                fadeModal.waitUntilNotVisible();
-                waitForAngularRequestsToFinish();
-            }
-        }
         newProjectButton.waitUntilVisible().click();
         inputNewProjectName.type(LocalTime.now().getNano() + " " + projectName);
         confirmNewTask.waitUntilClickable().click();
@@ -145,26 +138,10 @@ public class ProjectPage extends PageObject {
         fullTaskTree.shouldContainText(projectName);
     }
 
-    public void deleteProjectFromActions(){
-            int p = 0;
-            while (allProjectsList.size() >= 1) {
-                p++;
-                System.out.println("Task number " + p + " is deleted");
-                waitForAngularRequestsToFinish();
-                firstProjectOnList.click();
-                waitForAngularRequestsToFinish();
-                moreActionsProject.waitUntilVisible().click();
-                deleteFromMoreActions.waitUntilVisible().click();
-                confirmDeleteOK.waitUntilClickable().click();
-                confirmDeleteOK.waitUntilNotVisible();
-                deleteFromMoreActions.waitUntilNotVisible();
-                fadeModal.waitUntilNotVisible();
-                waitForAngularRequestsToFinish();
-            }
-    }
     public void goingBackToTimesheet(){
         timesheetTopButton.waitUntilClickable().click();
     }
+
     public void cloneProject(){
         waitForAngularRequestsToFinish();
         projectOnList.waitUntilVisible().click();
@@ -176,4 +153,49 @@ public class ProjectPage extends PageObject {
         fadeModal.waitUntilNotVisible();
     }
 
+    public void archiveProject(){
+        waitForAngularRequestsToFinish();
+        projectOnListToArchive.waitUntilVisible().click();
+        moreActionsProject.waitUntilVisible().click();
+        archiveFromMoreActions.waitUntilVisible().click();
+        confirmDeleteOK.waitUntilClickable().click();
+        confirmDeleteOK.waitUntilNotVisible();
+        archiveFromMoreActions.waitUntilNotVisible();
+        fadeModal.waitUntilNotVisible();
+    }
+
+    public void cleanUpProjects() {
+        waitForAngularRequestsToFinish();
+        log.info("Total projects on list is " + allProjectsList.size());
+        if (noProjects.isCurrentlyVisible()) {
+            log.info("There is no projects");
+        } else {
+            log.info("We are cleaning all projects on this page");
+            fullTaskTree.waitUntilVisible();
+            int i = 0;
+            while (allProjectsList.size() >= 1) {
+                i++;
+                log.info("Task number " + i + " is deleted");
+                waitForAngularRequestsToFinish();
+                firstProjectOnList.click();
+                waitForAngularRequestsToFinish();
+                moreActionsProject.waitUntilVisible().click();
+                deleteFromMoreActions.waitUntilVisible().click();
+                confirmDeleteOK.waitUntilClickable().click();
+                confirmDeleteOK.waitUntilNotVisible();
+                deleteFromMoreActions.waitUntilNotVisible();
+                fadeModal.waitUntilNotVisible();
+                waitForAngularRequestsToFinish();
+            }
+        }
+        log.info("There is no projects");
+    }
+
+    public void goToImportPage(){
+        topEllipsis.waitUntilVisible().click();
+        importFromCsv.waitUntilVisible().click();
+    }
+    public void goToArchivedPage() {
+        archivedPageButton.waitUntilVisible().click();
+    }
 }

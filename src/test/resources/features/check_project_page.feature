@@ -46,3 +46,19 @@ Feature: Check project page functionality
     Then we are checking that cloned project is listed
       |projectName|project [LEVEL 1] (clone)|
     And user is deleting added project, task, subtask
+
+#                                       THIRD SCENARIO:                                                              #
+#====================================================================================================================#
+  @PROJECT_PAGE
+  Scenario: We are going after login to project page, then add project, add task, add subtask. After that we are
+    archiving project, then go into archived page and reactivate this project. Back to project page and delete everything.
+
+    Given user is going into project page
+    And user is deleting added project, task, subtask
+    When user is going into import page and add projects using CSV
+      |csvImportData|oldProject [LEVEL 1],oldTask [LEVEL 2],oldSubtask [LEVEL 3] |
+    And user is going to archive created project
+    Then we are going to archived page check that project was archived, reactivate it and back to project page
+      |projectName|oldProject [LEVEL 1]|
+    And user is deleting added project, task, subtask
+
