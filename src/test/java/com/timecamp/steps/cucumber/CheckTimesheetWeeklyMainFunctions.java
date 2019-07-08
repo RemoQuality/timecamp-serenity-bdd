@@ -28,14 +28,15 @@ public class CheckTimesheetWeeklyMainFunctions {
 
 
     @And("^click stop timer and draw manually time entry on weekly view and choose created before project$")
-    public void clickStopTimerAndDrawManuallyTimeEntryOnWeeklyViewAndChooseCreatedBeforeProject() {
-        timesheetPage.drawEntryInWeekly();
+    public void clickStopTimerAndDrawManuallyTimeEntryOnWeeklyViewAndChooseCreatedBeforeProject(Map<String,String> data) {
         timesheetPage.clickStopTimerWeekly();
+        timesheetPage.drawEntryInWeekly();
+        timesheetPage.jsAddTaskFromTimesheet(data.get("taskName"));
     }
 
     @Then("^we are checking size of time entries on weekly timesheet$")
-    public void weAreCheckingSizeOfTimeEntriesOnWeeklyTimesheet() {
-        timesheetPage.checkTaskNameAndDuration();
+    public void weAreCheckingSizeOfTimeEntriesOnWeeklyTimesheet(Map<String,String> data) {
+        timesheetPage.checkTaskNameAndDuration(data.get("taskName"),(data.get("durationDaily")));
     }
 
     @And("^user back to daily view$")

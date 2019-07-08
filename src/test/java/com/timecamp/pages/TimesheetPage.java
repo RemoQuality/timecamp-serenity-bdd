@@ -4,7 +4,6 @@ import com.ibm.icu.util.Calendar;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.screenplay.actions.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.slf4j.Logger;
@@ -118,7 +117,7 @@ public class TimesheetPage extends PageObject {
     @FindBy(xpath = "//span[@ng-click='selectedDay == dayno && $event.stopPropagation()']")
     private WebElementFacade selectTaskRunningTimer;
 
-    @FindBy(className = "graph-grid-wrapper")
+    @FindBy(xpath = "//div[@class='graph-day-container']")
     private WebElementFacade allWeeklyCalendar;
 
     @FindBy(xpath = "//a[@event='tt_manage'][contains(.,'Projects')]")
@@ -149,6 +148,9 @@ public class TimesheetPage extends PageObject {
 
     @FindBy(id = "dots")
     private WebElementFacade preparingAccountMessage;
+
+    @FindBy(xpath = "//div[contains(.,'Draw entry here')]")
+    private WebElementFacade drawEntryHere;
 
 
     public void isTimesheetButtonDisplayed(boolean isTimesheet) {
@@ -265,18 +267,23 @@ public class TimesheetPage extends PageObject {
                 find(By.xpath("//span[@class='day-num ng-binding'][contains(.,'" + dayOfMonth + "')]")))
                 .click()
                 .build()
-                .perform(); // nie możemy dnia miesiąca wrzucić do adnotacji więc dlatego tutaj jednorazo jest lokator
+                .perform(); //locator cannot be as annotation because we need dayOfMonth in xpath
         startTimerWeeklyButton.waitUntilClickable().click();
         startTimerWeeklyButton.waitUntilNotVisible();
     }
 
     public void drawEntryInWeekly() {
         waitForAngularRequestsToFinish();
-//        MoveMouse.to(projectTopButton)
-//                .andThen(actions -> actions.moveByOffset(100,0).build().perform())
-//                .andThen(actions -> actions.click(projectTopButton).build().perform());
-//        //projectTopButton.click();
-//        System.out.println("czy to się wykonało?");
+        Calendar cal = Calendar.getInstance();
+        final int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        withAction().moveToElement(
+                find(By.xpath("//span[@class='day-num ng-binding'][contains(.,'" + dayOfMonth + "')]")))
+                .moveByOffset(0, 100)
+                .clickAndHold()
+                .moveByOffset(0, 200)
+                .release()
+                .build()
+                .perform(); //locator cannot be as annotation because we need dayOfMonth in xpath
     }
 
     public void clickStopTimerWeekly() {
@@ -284,10 +291,11 @@ public class TimesheetPage extends PageObject {
         stopTimerWeekly.waitUntilVisible().click();
     }
 
-    public void checkTaskNameAndDuration() {
+    public void checkTaskNameAndDuration(String taskName, String durationDaily) {
         waitForAngularRequestsToFinish();
         durationOfDayWeeklyTimesheet.shouldBeVisible();
-        allWeeklyCalendar.containsText("Testing task added from weekly view");
+        allWeeklyCalendar.shouldContainText(taskName);
+        durationOfDayWeeklyTimesheet.shouldContainText(durationDaily);
     }
     public void changeViewToDaily() {
         waitForAngularRequestsToFinish();

@@ -17,6 +17,9 @@ Feature: Check timesheet basic functions on weekly view
     When user start timer from weekly view with clicking button to create new task
       |taskName|Testing task added from weekly view|
     And click stop timer and draw manually time entry on weekly view and choose created before project
+      |taskName|Testing task drawn from weekly view|
     Then we are checking size of time entries on weekly timesheet
+      |taskName|Testing task drawn from weekly view|
+      |durationDaily|2h 15m|
     And user back to daily view
     And user is on daily timesheet, no time entries, no running timer, when there is entries clean up by bulk delete
