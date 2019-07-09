@@ -280,7 +280,7 @@ public class TimesheetPage extends PageObject {
                 find(By.xpath("//span[@class='day-num ng-binding'][contains(.,'" + dayOfMonth + "')]")))
                 .moveByOffset(0, 100)
                 .clickAndHold()
-                .moveByOffset(0, 200)
+                .moveByOffset(0, 201)
                 .release()
                 .build()
                 .perform(); //locator cannot be as annotation because we need dayOfMonth in xpath
