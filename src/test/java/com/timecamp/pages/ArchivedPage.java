@@ -19,7 +19,7 @@ public class ArchivedPage extends PageObject {
     @FindBy (id = "tree")
     private WebElementFacade archivedTree;
 
-    @FindBy (xpath = "(//a[contains(.,'Reactivate')][@class='btn tc-btn btn-xs btn-default reactivateTask'])")
+    @FindBy (xpath = "(//a[contains(.,'Reactivate')])")
     private List<WebElementFacade> listOfArchivedProjects;
 
     @FindBy(xpath = "(//a[contains(.,'Reactivate')])[1]")
@@ -39,15 +39,13 @@ public class ArchivedPage extends PageObject {
         archivedTree.shouldContainText(projectName);
     }
     public void reactivateProjectsAndBackProjectPage() {
-        while(listOfArchivedProjects.size() >= 1){
-            firstReactivateButton.waitUntilPresent();
+        while(listOfArchivedProjects.size() > 1){
             withAction().moveToElement(firstReactivateButton)
                         .click()
                         .build()
                         .perform();
                 waitForAngularRequestsToFinish();
         }
-
         topProjectPage.waitUntilVisible().click();
     }
 }
