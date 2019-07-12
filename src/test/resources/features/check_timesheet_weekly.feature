@@ -20,6 +20,6 @@ Feature: Check timesheet basic functions on weekly view
       |taskName|Testing task drawn from weekly view|
     Then we are checking size of time entries on weekly timesheet
       |taskName|Testing task drawn from weekly view|
-      |durationDaily|2h 15m|
+      |durationDaily|2h|
     And user back to daily view
     And user is on daily timesheet, no time entries, no running timer, when there is entries clean up by bulk delete
