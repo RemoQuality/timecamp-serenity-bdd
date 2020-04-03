@@ -4,8 +4,8 @@ Feature: Check reports data after we add some data on Timesheet
     Given user on TimeCamp home page
     When user open login page
     And login using bellow email and password
-      |email|r.chowaniak+selenium@timecamp.com|
-      |password|Selenium123|
+      |email|xxxx@xxxx.com|
+      |password|xxxxxx|
     Then we are checking that user are on Timesheet
 
 #                                       FIRST SCENARIO:                                                              #
