@@ -6,7 +6,7 @@ Feature: Check registering account
   Given user on TimeCamp home page
   When user is going into registration page
     And input email and password
-      |login|r.chowaniak+selenium|
-      |domain|@timecamp.com|
-      |password|Selenium123|
+      |login|xxxxxxxxx|
+      |domain|@xxxxxxxxxxxx.com|
+      |password|xxxxxxxxxxxxxxxx|
     Then we are checking that account is properly created
